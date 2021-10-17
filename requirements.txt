@@ -1,0 +1,4 @@
+demisto-sdk
+virtualenv
+jsonschema
+gsutil

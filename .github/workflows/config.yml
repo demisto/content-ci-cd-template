@@ -1,11 +1,11 @@
-name: Content Managament CI/CD
+name: XSOAR CI/CD
 on:
   push:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Content Managament CI/CD master checkout
+      - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
         with:
           repository: your/repository

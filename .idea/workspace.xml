@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05203a5c-9958-4e33-a702-01e9ad29450f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.hooks/pre-commit" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/content-ci-cd-template.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CommonServerPowerShell.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CommonServerPython.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build_related_scripts/bucket_upload.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build_related_scripts/get_modified_packs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demistomock.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demistomock.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dev_envs/pytest/conftest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tox.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,14 +67,22 @@
       <option name="project" value="LOCAL" />
       <updated>1634476430302</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added all relevant files">
+      <created>1634478268252</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1634478268252</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Template" />
     <MESSAGE value="Remove Template" />
     <MESSAGE value="add ci cd yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="add ci cd yml" />
+    <MESSAGE value="added all relevant files" />
+    <option name="LAST_COMMIT_MESSAGE" value="added all relevant files" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1611" y="-673" key="#Notifications" timestamp="1634475737038">
@@ -101,15 +93,15 @@
       <screen x="764" y="-1080" width="1920" height="1080" />
     </state>
     <state x="1463" y="-734" key="#com.intellij.fileTypes.FileTypeChooser/-1156.-1080.1920.1080/764.-1080.1920.1080/0.0.1680.1050@764.-1080.1920.1080" timestamp="1634472559501" />
-    <state x="485" y="109" key="CommitChangelistDialog2" timestamp="1634476430089">
-      <screen x="0" y="0" width="1680" height="1050" />
-    </state>
-    <state x="1318" y="-968" key="CommitChangelistDialog2/-1156.-1080.1920.1080/764.-1080.1920.1080/0.0.1680.1050@764.-1080.1920.1080" timestamp="1634475206544" />
-    <state x="485" y="109" key="CommitChangelistDialog2/0.0.1680.1050@0.0.1680.1050" timestamp="1634476430089" />
-    <state x="1052" y="-974" key="DiffContextDialog" timestamp="1634474841027">
+    <state x="1318" y="-968" key="CommitChangelistDialog2" timestamp="1634478268007">
       <screen x="764" y="-1080" width="1920" height="1080" />
     </state>
-    <state x="1052" y="-974" key="DiffContextDialog/-1156.-1080.1920.1080/764.-1080.1920.1080/0.0.1680.1050@764.-1080.1920.1080" timestamp="1634474841027" />
+    <state x="1318" y="-968" key="CommitChangelistDialog2/-1156.-1080.1920.1080/764.-1080.1920.1080/0.0.1680.1050@764.-1080.1920.1080" timestamp="1634478268007" />
+    <state x="485" y="109" key="CommitChangelistDialog2/0.0.1680.1050@0.0.1680.1050" timestamp="1634476430089" />
+    <state x="1052" y="-974" key="DiffContextDialog" timestamp="1634478307292">
+      <screen x="764" y="-1080" width="1920" height="1080" />
+    </state>
+    <state x="1052" y="-974" key="DiffContextDialog/-1156.-1080.1920.1080/764.-1080.1920.1080/0.0.1680.1050@764.-1080.1920.1080" timestamp="1634478307292" />
     <state width="1876" height="117" key="GridCell.Tab.0.bottom" timestamp="1634474753458">
       <screen x="764" y="-1080" width="1920" height="1080" />
     </state>
@@ -142,10 +134,10 @@
       <screen x="764" y="-1080" width="1920" height="1080" />
     </state>
     <state width="1876" height="117" key="GridCell.Tab.1.right/-1156.-1080.1920.1080/764.-1080.1920.1080/0.0.1680.1050@764.-1080.1920.1080" timestamp="1634474753461" />
-    <state x="490" y="269" key="Vcs.Push.Dialog.v2" timestamp="1634476434181">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="1324" y="-803" key="Vcs.Push.Dialog.v2" timestamp="1634478309129">
+      <screen x="764" y="-1080" width="1920" height="1080" />
     </state>
-    <state x="1324" y="-803" key="Vcs.Push.Dialog.v2/-1156.-1080.1920.1080/764.-1080.1920.1080/0.0.1680.1050@764.-1080.1920.1080" timestamp="1634475213229" />
+    <state x="1324" y="-803" key="Vcs.Push.Dialog.v2/-1156.-1080.1920.1080/764.-1080.1920.1080/0.0.1680.1050@764.-1080.1920.1080" timestamp="1634478309129" />
     <state x="490" y="269" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1634476434181" />
     <state x="1343" y="-926" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1634470684023">
       <screen x="764" y="-1080" width="1920" height="1080" />

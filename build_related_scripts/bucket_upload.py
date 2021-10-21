@@ -8,7 +8,9 @@ from prettytable import PrettyTable
 
 from google.cloud import storage
 
-BUCKET_NAME = 'TODO_BUCKET_NAME'
+
+# TODO - Note you need to fill your actual bucket's name here for the script.
+BUCKET_NAME = '<<TODO_YOUR_BUCKET_NAME>>'
 MAIN_BRANCH = 'master'
 MAIN_BUCKET_PACK_PATH_FORMAT = 'content/packs/{pack_name}/{pack_version}/{pack_zip_name}'
 BRANCH_BUCKET_PACK_PATH_FORMAT = 'builds/{branch_name}/packs/{pack_name}/{pack_version}/{pack_zip_name}'

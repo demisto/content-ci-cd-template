@@ -35,7 +35,7 @@ jobs:
           echo "DEMISTO_README_VALIDATION=false" >> $GITHUB_ENV
 
           BRANCH_NAME=${REF#refs/heads/}
-          PACKS_CHANGED=$(python $GITHUB_WORKSPACE/content-internal-dist/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/content-internal-dist/)
+          PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/)
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
           echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
 
@@ -89,6 +89,7 @@ jobs:
           cd $GITHUB_WORKSPACE/repository
 
           # Run validate on all changed files
+          # You can choose what validations to use in the .demisto-sdk-conf file
           demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped
       - name: Run Unit Testing and Lint
         if: always()
@@ -106,6 +107,7 @@ jobs:
           cp $GITHUB_WORKSPACE/content/Tests/scripts/dev_envs/pytest/conftest.py ./dev_envs/pytest/
 
           # Run lint on all changed files
+          # You can choose what lint checks to use in the .demisto-sdk-conf file
           demisto-sdk lint -g
       - name: Create Packs Artifacts
         run: |

@@ -109,7 +109,7 @@ jobs:
 
           # Run lint on all changed files
           # You can choose what lint checks to use in the .demisto-sdk-conf file
-          demisto-sdk lint -g --pre-ver ${DEFAULT_BRANCH}
+          demisto-sdk lint -g --prev-ver ${DEFAULT_BRANCH}
       - name: Create Packs Artifacts
         run: |
           if [ $PACKS_CHANGED ]; then

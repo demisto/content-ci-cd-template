@@ -28,10 +28,11 @@ def option_handler() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(description='Collect the packs that has changed.')
     parser.add_argument('-rp', '--repo_path', help='The path to the required repo.', type=dir_path)
+    parser.add_argument('--prev-ver', default='main', help='Previous branch or SHA1 commit to run checks against.')
     return parser.parse_args()
 
 
-def get_changed_files(repo_path: Path) -> List[str]:
+def get_changed_files(repo_path: Path, prev_ver: str) -> List[str]:
     """Uses the demisto-sdk's GitUtil to get all the changed files.
 
     Args:
@@ -43,8 +44,7 @@ def get_changed_files(repo_path: Path) -> List[str]:
     repo = Repo(repo_path, search_parent_directories=True)
     git_util = GitUtil(repo)
 
-    prev_ver = 'master'
-    if str(repo.active_branch) == 'master':
+    if str(repo.active_branch) == prev_ver:
         # Get the latest commit in master, prior the merge.
         commits_list = list(repo.iter_commits())
         prev_ver = str(commits_list[1])
@@ -61,8 +61,9 @@ def get_changed_files(repo_path: Path) -> List[str]:
 def main():
     options = option_handler()
     repo_path: Path = options.repo_path
+    prev_ver: str = options.prev_ver
 
-    changed_files = get_changed_files(repo_path)
+    changed_files = get_changed_files(repo_path, prev_ver)
 
     packs_changed = get_pack_names_from_files(changed_files)
     changed_packs_string = ",".join(packs_changed)

@@ -35,7 +35,7 @@ jobs:
           echo "NEW_PACKS_FOLDER=/home/runner/work/repository/repository/content/new_packs_zips" >> $GITHUB_ENV
           echo "DEMISTO_README_VALIDATION=false" >> $GITHUB_ENV
 
-          BRANCH_NAME=${REF#refs/heads/}
+          BRANCH_NAME=${REF#refs/heads/} >> $GITHUB_ENV
           PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/ --prev-ver ${DEFAULT_BRANCH})
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
           # echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
@@ -123,13 +123,24 @@ jobs:
           else
             echo "No packs has changed, skipping step."
           fi
-      - name: Upload Packs to Artifacts Server
-        env:
-          REF: ${{ github.ref }}
-        run : |
-          if [ $PACKS_CHANGED ]; then
-            BRANCH_NAME=${REF#refs/heads/}
-            # TODO - Upload to the artifacts server of your choice.
-          else
-            echo "No packs has changed, skipping step."
-          fi
+      - name: Upload Packs to AWS S3 Artifacts Server
+        if: ${{ env.PACKS_CHANGED && secrets.AWS_ASSUME_ROLE }}
+        uses: ./.github/workflows/upload-artifacts-s3.yml@enhance-cicd-workflow
+        with:
+          branch_name: ${{ env.BRANCH_NAME }}
+          pack_names: ${{ env.PACKS_CHANGED }}
+          packs_directory: ${{ env.ARTIFACTS_FOLDER }}
+        secrets:
+          bucket_name: ${{ secrets.BUCKET_NAME }}
+          aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+      - name: Upload Packs to Google Cloud Storage Artifacts Server
+        if: ${{ env.PACKS_CHANGED && secrets.GCP_SERVICE_ACCOUNT }}
+        uses: ./.github/workflows/upload-artifacts-gs.yml@enhance-cicd-workflow
+        with:
+          branch_name: ${{ env.BRANCH_NAME }}
+          pack_names: ${{ env.PACKS_CHANGED }}
+          packs_directory: ${{ env.ARTIFACTS_FOLDER }}
+        secrets:
+          bucket_name: ${{ secrets.BUCKET_NAME }}
+          workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}

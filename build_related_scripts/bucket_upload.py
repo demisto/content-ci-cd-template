@@ -9,8 +9,6 @@ from prettytable import PrettyTable
 from google.cloud import storage
 
 
-# TODO - Note you need to fill your actual bucket's name here for the script.
-BUCKET_NAME = '<<TODO_YOUR_BUCKET_NAME>>'
 MAIN_BRANCH = 'master'
 MAIN_BUCKET_PACK_PATH_FORMAT = 'content/packs/{pack_name}/{pack_version}/{pack_zip_name}'
 BRANCH_BUCKET_PACK_PATH_FORMAT = 'builds/{branch_name}/packs/{pack_name}/{pack_version}/{pack_zip_name}'
@@ -33,13 +31,14 @@ def option_handler() -> argparse.Namespace:
 
     """
     parser = argparse.ArgumentParser(description='Upload packs to xsoar-content-gold bucket.')
+    parser.add_argument('--bucket_name', required=True, help='The bucket name to upload packs to.')
     parser.add_argument('-sa', '--service_account', help='The authorization data for the bucket access.')
     parser.add_argument('-d', '--packs_directory', help='The path to the directory with the packs to upload.', type=dir_path)
     parser.add_argument('-b', '--branch_name', help='The branch name that the upload is running from.')
     return parser.parse_args()
 
 
-def init_bucket(service_account: str) -> Optional[storage.Bucket]:
+def init_bucket(bucket_name: str, service_account: str) -> Optional[storage.Bucket]:
     """Initiate bucket connection.
 
     Args:
@@ -50,7 +49,7 @@ def init_bucket(service_account: str) -> Optional[storage.Bucket]:
     """
     try:
         storage_client = storage.Client.from_service_account_json(service_account)
-        bucket = storage_client.bucket(BUCKET_NAME)
+        bucket = storage_client.bucket(bucket_name)
     except Exception as e:
         print(f'An error occurred while initiating bucket.\n{e}')
         return
@@ -149,11 +148,12 @@ def print_uploads_results_table(packs_results: Dict[str, bool]) -> None:
 
 def main():
     options = option_handler()
+    bucket_name: str = options.bucket_name
     service_account: str = options.service_account
     packs_directory: Path = options.packs_directory
     branch_name: str = options.branch_name
 
-    bucket = init_bucket(service_account)
+    bucket = init_bucket(bucket_name, service_account)
     if not bucket:
         exit(1)
 

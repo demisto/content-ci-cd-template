@@ -120,7 +120,6 @@ jobs:
           else
             echo "No packs has changed, skipping step."
           fi
-          ls $ARTIFACTS_FOLDER
       - uses: actions/upload-artifact@v2
         with:
           name: "artifacts-${{ github.run_id }}"

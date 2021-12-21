@@ -126,10 +126,30 @@ jobs:
     outputs:
       packs_changed: ${{ env.PACKS_CHANGED }}
 
-  upload_s3:
-    if: ${{ needs.build.outputs.packs_changed && secrets.AWS_ASSUME_ROLE }}
+  determine_artifact_storage_provider:
+    if: ${{ needs.build.outputs.packs_changed }}
     needs: [build]
-    uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-s3.yml@craigsands/enhance-cicd-workflow
+    runs-on: ubuntu-latest
+    steps:
+      - id: determine_provider
+        env:
+          AWS_ASSUME_ROLE: ${{ secrets.AWS_ASSUME_ROLE }}
+          GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+        run: |
+          if [ ${AWS_ASSUME_ROLE} != '' ]; then
+            echo "::set-output name=provider::aws"
+          elif [ ${GCP_SERVICE_ACCOUNT} != '' ]; then
+            echo "::set-output name=provider::gcp"
+          else
+            echo "Unable to determine artifact storage provider."
+          fi
+    outputs:
+      provider: ${{ steps.determine_provider.outputs.provider }}
+
+  upload_s3:
+    if: ${{ needs.determine_artifact_storage_provider.outputs.provider == 'aws' }}
+    needs: [determine_artifact_storage_provider]
+    uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-aws.yml@craigsands/enhance-cicd-workflow
     with:
       branch_name: ${{ env.BRANCH_NAME }}
       pack_names: ${{ env.PACKS_CHANGED }}
@@ -139,14 +159,14 @@ jobs:
       aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
 
   upload_gcs:
-    if: ${{ needs.build.outputs.packs_changed && secrets.GCP_SERVICE_ACCOUNT }}
-    needs: [build]
-    uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-gcs.yml@craigsands/enhance-cicd-workflow
+    if: ${{ needs.determine_artifact_storage_provider.outputs.provider == 'gcp' }}
+    needs: [determine_artifact_storage_provider]
+    uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-gcp.yml@craigsands/enhance-cicd-workflow
     with:
       branch_name: ${{ env.BRANCH_NAME }}
       pack_names: ${{ env.PACKS_CHANGED }}
       packs_directory: ${{ env.ARTIFACTS_FOLDER }}
     secrets:
-        bucket_name: ${{ secrets.BUCKET_NAME }}
-        workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}
-        service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      bucket_name: ${{ secrets.BUCKET_NAME }}
+      workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}
+      service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}

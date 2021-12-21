@@ -1,0 +1,36 @@
+{
+    "scripts": [],
+    "playbooks": [],
+    "integrations": [],
+    "TestPlaybooks": [],
+    "Classifiers": [],
+    "Dashboards": [],
+    "IncidentFields": [],
+    "IncidentTypes": [],
+    "IndicatorFields": [],
+    "IndicatorTypes": [],
+    "Layouts": [],
+    "Reports": [],
+    "Widgets": [],
+    "Mappers": [],
+    "Packs": {
+        "Example": {
+            "name": "Example",
+            "current_version": "1.0.0",
+            "source": "github.com - craigsands/content-ci-cd-template",
+            "author": "Craig Sands",
+            "certification": "",
+            "tags": [],
+            "use_cases": [],
+            "categories": [
+                "Analytics & SIEM"
+            ]
+        }
+    },
+    "GenericTypes": [],
+    "GenericFields": [],
+    "GenericModules": [],
+    "GenericDefinitions": [],
+    "Lists": [],
+    "Jobs": []
+}

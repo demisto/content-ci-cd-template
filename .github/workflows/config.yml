@@ -2,7 +2,24 @@ name: XSOAR CI/CD
 on:
   push:
 jobs:
+  get_changed_packs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            packs:
+              - 'Packs/**'
+      - if: steps.filter.outputs.changed_files
+        run: |
+          echo ${{ steps.filter.outputs.changed_files }}
+
   build:
+    needs: [get_changed_packs]
+    if: ${{ steps.filter.outputs.packs == 'true' }}
     runs-on: ubuntu-latest
     env:
       DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
@@ -123,6 +140,7 @@ jobs:
           else
             echo "No packs has changed, skipping step."
           fi
+          ls $ARTIFACTS_FOLDER
     outputs:
       branch_name: ${{ env.BRANCH_NAME }}
       pack_changed: ${{ env.PACKS_CHANGED }}

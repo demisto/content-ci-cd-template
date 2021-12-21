@@ -14,16 +14,19 @@ jobs:
             changed:
               - 'Packs/**'
       - if: ${{ steps.filter.outputs.changed == 'true' }}
+        id: get_pack_names
         run: |
-          echo ${{ steps.filter.outputs.changed_files }}
+          PACK_NAMES=$(echo ${{ steps.filter.outputs.changed_files }} | tr ' ' '\n' | cut -d '/' -f 2 | sort -u | tr '\n' ' ')
+          echo "::set-output name=names::${PACK_NAMES}"
 
   build:
     needs: [get_changed_packs]
-    if: ${{ needs.get_changed_packs.filter.outputs.changed == 'true' }}
+    if: ${{ needs.get_changed_packs.get_pack_names.outputs.names }}
     runs-on: ubuntu-latest
     env:
       DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
     steps:
+      - run: echo ${{ needs.get_changed_packs.get_pack_names.outputs.names }}
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
         with:

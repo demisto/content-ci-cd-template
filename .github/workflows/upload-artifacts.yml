@@ -1,0 +1,66 @@
+# Reusable workflow to upload artifacts to cloud storage provider
+#
+# This workflow uses OpenID Connect (OIDC) to authenticate
+
+name: Upload Artifacts to Cloud Storage
+on:
+  workflow_call:
+    inputs:
+      storage_provider:
+        required: true
+        type: string
+      branch_name:
+        required: true
+        type: string
+      pack_names:
+        required: true
+        type: string
+      artifact_folder:
+        required: true
+        type: string
+    secrets:
+      bucket_name:
+        required: true
+      aws_assume_role:
+        required: false
+      workload_identity_provider:
+        required: false
+      service_account:
+        required: false
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    env:
+      STORAGE_PROVIDER: ${{ inputs.storage_provider }}
+      BRANCH_NAME: ${{ inputs.branch_name }}
+      PACK_NAMES: ${{ inputs.pack_names }}
+      ARTIFACT_FOLDER: ${{ inputs.artifact_folder }}
+      BUCKET_NAME: ${{ secrets.bucket_name }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${ARTIFACT_FOLDER}
+      - if: inputs.storage_provider == 'aws'
+        name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.aws_assume_role }}
+          aws-region: "us-east-1"
+      - if: inputs.storage_provider == 'gcp'
+        name: Authenticate to GCP
+        uses: google-github-actions/auth@v0
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: ${{ secrets.workload_identity_provider }}
+          service_account: ${{ secrets.service_account }}
+      - name: Upload Packs to Artifacts Server
+        run : |
+          echo "Uploading packs ${PACK_NAMES}..."
+          python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload_${STORAGE_PROVIDER}.py \
+            --bucket_name "${BUCKET_NAME}" \
+            --branch_name "${PACK_NAMES}" \
+            --verbose

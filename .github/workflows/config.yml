@@ -11,15 +11,15 @@ jobs:
         with:
           list-files: shell
           filters: |
-            packs:
+            changed:
               - 'Packs/**'
-      - if: ${{ steps.filter.outputs.changed_files }}
+      - if: ${{ steps.filter.outputs.changed == 'true' }}
         run: |
           echo ${{ steps.filter.outputs.changed_files }}
 
   build:
     needs: [get_changed_packs]
-    if: ${{ needs.get_changed_packs.filter.outputs.packs == 'true' }}
+    if: ${{ needs.get_changed_packs.filter.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
     env:
       DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}

@@ -13,13 +13,13 @@ jobs:
           filters: |
             packs:
               - 'Packs/**'
-      - if: steps.filter.outputs.changed_files
+      - if: ${{ steps.filter.outputs.changed_files }}
         run: |
           echo ${{ steps.filter.outputs.changed_files }}
 
   build:
     needs: [get_changed_packs]
-    if: ${{ steps.filter.outputs.packs == 'true' }}
+    if: ${{ get_changed_packs.filter.outputs.packs == 'true' }}
     runs-on: ubuntu-latest
     env:
       DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}

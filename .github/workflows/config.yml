@@ -16,7 +16,7 @@ jobs:
       - if: ${{ steps.filter.outputs.changed == 'true' }}
         id: get_pack_names
         run: |
-          PACK_NAMES=$(echo ${{ steps.filter.outputs.changed_files }} | tr ' ' '\n' | cut -d '/' -f 2 | sort -u | tr '\n' ' ')
+          PACK_NAMES=$(echo "${{ steps.filter.outputs.changed_files }}" | tr " " "\n" | cut -d "/" -f 2 | sort -u | tr "\n" " ")
           echo "::set-output name=names::${PACK_NAMES}"
 
   build:

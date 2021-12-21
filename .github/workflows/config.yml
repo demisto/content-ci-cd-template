@@ -129,7 +129,7 @@ jobs:
   upload_s3:
     if: ${{ needs.build.outputs.packs_changed && secrets.AWS_ASSUME_ROLE }}
     needs: [build]
-    uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-s3.yml@enhance-cicd-workflow
+    uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-s3.yml@craigsands/enhance-cicd-workflow
     with:
       branch_name: ${{ env.BRANCH_NAME }}
       pack_names: ${{ env.PACKS_CHANGED }}
@@ -141,7 +141,7 @@ jobs:
   upload_gcs:
     if: ${{ needs.build.outputs.packs_changed && secrets.GCP_SERVICE_ACCOUNT }}
     needs: [build]
-    uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-gcs.yml@enhance-cicd-workflow
+    uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-gcs.yml@craigsands/enhance-cicd-workflow
     with:
       branch_name: ${{ env.BRANCH_NAME }}
       pack_names: ${{ env.PACKS_CHANGED }}

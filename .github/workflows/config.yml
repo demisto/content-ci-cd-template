@@ -123,24 +123,30 @@ jobs:
           else
             echo "No packs has changed, skipping step."
           fi
-      - name: Upload Packs to AWS S3 Artifacts Server
-        if: ${{ env.PACKS_CHANGED && secrets.AWS_ASSUME_ROLE }}
-        uses: ./.github/workflows/upload-artifacts-s3.yml@enhance-cicd-workflow
-        with:
-          branch_name: ${{ env.BRANCH_NAME }}
-          pack_names: ${{ env.PACKS_CHANGED }}
-          packs_directory: ${{ env.ARTIFACTS_FOLDER }}
-        secrets:
-          bucket_name: ${{ secrets.BUCKET_NAME }}
-          aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
-      - name: Upload Packs to Google Cloud Storage Artifacts Server
-        if: ${{ env.PACKS_CHANGED && secrets.GCP_SERVICE_ACCOUNT }}
-        uses: ./.github/workflows/upload-artifacts-gs.yml@enhance-cicd-workflow
-        with:
-          branch_name: ${{ env.BRANCH_NAME }}
-          pack_names: ${{ env.PACKS_CHANGED }}
-          packs_directory: ${{ env.ARTIFACTS_FOLDER }}
-        secrets:
-          bucket_name: ${{ secrets.BUCKET_NAME }}
-          workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+    outputs:
+      packs_changed: ${{ env.PACKS_CHANGED }}
+
+  upload_s3:
+    if: ${{ needs.build.outputs.packs_changed && secrets.AWS_ASSUME_ROLE }}
+    needs: [build]
+    uses: ./.github/workflows/upload-artifacts-s3.yml@enhance-cicd-workflow
+    with:
+      branch_name: ${{ env.BRANCH_NAME }}
+      pack_names: ${{ env.PACKS_CHANGED }}
+      packs_directory: ${{ env.ARTIFACTS_FOLDER }}
+    secrets:
+      bucket_name: ${{ secrets.BUCKET_NAME }}
+      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
+
+  upload_gcs:
+    if: ${{ needs.build.outputs.packs_changed && secrets.GCP_SERVICE_ACCOUNT }}
+    needs: [build]
+    uses: ./.github/workflows/upload-artifacts-gcs.yml@enhance-cicd-workflow
+    with:
+      branch_name: ${{ env.BRANCH_NAME }}
+      pack_names: ${{ env.PACKS_CHANGED }}
+      packs_directory: ${{ env.ARTIFACTS_FOLDER }}
+    secrets:
+        bucket_name: ${{ secrets.BUCKET_NAME }}
+        workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}

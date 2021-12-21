@@ -124,7 +124,9 @@ jobs:
             echo "No packs has changed, skipping step."
           fi
     outputs:
-      packs_changed: ${{ env.PACKS_CHANGED }}
+      branch_name: ${{ env.BRANCH_NAME }}
+      pack_changed: ${{ env.PACKS_CHANGED }}
+      packs_directory: ${{ env.ARTIFACTS_FOLDER }}
 
   determine_artifact_storage_provider:
     if: ${{ needs.build.outputs.packs_changed }}
@@ -148,24 +150,24 @@ jobs:
 
   upload_s3:
     if: ${{ needs.determine_artifact_storage_provider.outputs.provider == 'aws' }}
-    needs: [determine_artifact_storage_provider]
+    needs: [build, determine_artifact_storage_provider]
     uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-aws.yml@craigsands/enhance-cicd-workflow
     with:
-      branch_name: ${{ env.BRANCH_NAME }}
-      pack_names: ${{ env.PACKS_CHANGED }}
-      packs_directory: ${{ env.ARTIFACTS_FOLDER }}
+      branch_name: ${{ needs.build.outputs.branch_name }}
+      pack_names: ${{ needs.build.outputs.packs_changed }}
+      packs_directory: ${{ needs.build.outputs.packs_directory }}
     secrets:
       bucket_name: ${{ secrets.BUCKET_NAME }}
       aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
 
   upload_gcs:
     if: ${{ needs.determine_artifact_storage_provider.outputs.provider == 'gcp' }}
-    needs: [determine_artifact_storage_provider]
+    needs: [build, determine_artifact_storage_provider]
     uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts-gcp.yml@craigsands/enhance-cicd-workflow
     with:
-      branch_name: ${{ env.BRANCH_NAME }}
-      pack_names: ${{ env.PACKS_CHANGED }}
-      packs_directory: ${{ env.ARTIFACTS_FOLDER }}
+      branch_name: ${{ needs.build.outputs.branch_name }}
+      pack_names: ${{ needs.build.outputs.packs_changed }}
+      packs_directory: ${{ needs.build.outputs.packs_directory }}
     secrets:
       bucket_name: ${{ secrets.BUCKET_NAME }}
       workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}

@@ -6,9 +6,6 @@ name: Upload Artifacts to Cloud Storage
 on:
   workflow_call:
     inputs:
-      storage_provider:
-        required: true
-        type: string
       branch_name:
         required: true
         type: string
@@ -19,6 +16,8 @@ on:
         required: true
         type: string
     secrets:
+      storage_provider:
+        required: true
       bucket_name:
         required: true
       aws_assume_role:
@@ -34,7 +33,7 @@ jobs:
       contents: 'read'
       id-token: 'write'
     env:
-      STORAGE_PROVIDER: ${{ inputs.storage_provider }}
+      STORAGE_PROVIDER: ${{ secrets.storage_provider }}
       BRANCH_NAME: ${{ inputs.branch_name }}
       PACK_NAMES: ${{ inputs.pack_names }}
       ARTIFACT_FOLDER: ${{ inputs.artifact_folder }}

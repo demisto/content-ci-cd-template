@@ -43,8 +43,6 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ${{ env.ARTIFACT_FOLDER }}
-      - run: tree
-      - run: tree ${GITHUB_WORKSPACE}
       - id: provider
         run: |
           if [ ${STORAGE_PROVIDER} == 'aws' ]; then
@@ -88,8 +86,8 @@ jobs:
             exit 1
           fi
           echo "Uploading packs ${PACK_NAMES}..."
-          python $GITHUB_WORKSPACE/build_related_scripts/bucket_upload_${STORAGE_PROVIDER}.py \
+          python ${GITHUB_WORKSPACE}/build_related_scripts/bucket_upload_${STORAGE_PROVIDER}.py \
             --bucket_name "${BUCKET_NAME}" \
-            --packs_directory "${ARTIFACT_FOLDER}/uploadable_packs" \
+            --packs_directory "./uploadable_packs" \
             --branch_name "${BRANCH_NAME}" \
             --verbose

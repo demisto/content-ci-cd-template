@@ -43,20 +43,31 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ${{ env.ARTIFACT_FOLDER }}
-      - if: inputs.storage_provider == 'aws'
+      - id: provider
+        run: |
+          if [ ${STORAGE_PROVIDER} == 'aws' ]; then
+            echo "Using Amazon Web Services for artifact storage."
+            echo "::set-output name=provider::aws"
+          elif [ ${STORAGE_PROVIDER} == 'gcp' ]; then
+            echo "Using Google Cloud Platform for artifact storage."
+            echo "::set-output name=provider::gcp"
+          else
+            echo "No storage provider selected. Artifacts will not be uploaded."
+          fi
+      - if: steps.provider.outputs.provider == 'aws'
         name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.aws_assume_role }}
           aws-region: "us-east-1"
-      - if: inputs.storage_provider == 'gcp'
+      - if: steps.provider.outputs.provider == 'gcp'
         name: Authenticate to GCP
         uses: google-github-actions/auth@v0
         with:
           token_format: 'access_token'
           workload_identity_provider: ${{ secrets.workload_identity_provider }}
           service_account: ${{ secrets.service_account }}
-      - if: inputs.storage_provider != ''
+      - if: steps.provider.outputs.provider != ''
         name: Upload Packs to Artifacts Server
         run: |
           if [ ${BUCKET_NAME} == '' ]; then

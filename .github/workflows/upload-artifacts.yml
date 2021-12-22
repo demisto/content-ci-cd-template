@@ -43,6 +43,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: ${{ env.ARTIFACT_FOLDER }}
+      - run: tree
       - id: provider
         run: |
           if [ ${STORAGE_PROVIDER} == 'aws' ]; then

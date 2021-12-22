@@ -53,6 +53,7 @@ jobs:
             echo "::set-output name=provider::gcp"
           else
             echo "No storage provider selected. Artifacts will not be uploaded."
+            exit 1
           fi
       - if: steps.provider.outputs.provider == 'aws'
         name: Configure AWS credentials
@@ -67,6 +68,16 @@ jobs:
           token_format: 'access_token'
           workload_identity_provider: ${{ secrets.workload_identity_provider }}
           service_account: ${{ secrets.service_account }}
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.5
+      - if: steps.provider.outputs.provider == 'aws'
+        name: Install AWS requirements
+        run: pip install boto3 prettytable
+      - if: steps.provider.outputs.provider == 'gcp'
+        name: Install AWS requirements
+        run: pip install gsutil prettytable
       - if: steps.provider.outputs.provider != ''
         name: Upload Packs to Artifacts Server
         run: |

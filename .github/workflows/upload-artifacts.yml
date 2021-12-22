@@ -75,7 +75,7 @@ jobs:
             exit 1
           fi
           echo "Uploading packs ${PACK_NAMES}..."
-          python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload_${STORAGE_PROVIDER}.py \
+          python $GITHUB_WORKSPACE/build_related_scripts/bucket_upload_${STORAGE_PROVIDER}.py \
             --bucket_name "${BUCKET_NAME}" \
             --packs_directory "${ARTIFACTS_FOLDER}/uploadable_packs" \
             --branch_name "${BRANCH_NAME}" \

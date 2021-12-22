@@ -44,6 +44,7 @@ jobs:
         with:
           name: ${{ env.ARTIFACT_FOLDER }}
       - run: tree
+      - run: tree ${GITHUB_WORKSPACE}
       - id: provider
         run: |
           if [ ${STORAGE_PROVIDER} == 'aws' ]; then

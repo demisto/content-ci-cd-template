@@ -129,20 +129,25 @@ jobs:
           if [ $PACKS_CHANGED ]; then
             BRANCH_NAME=${REF#refs/heads/}
 
-            # ========= UPLOAD TO ARTIFACTS SERVER OPTION =========
+            # Select the way you want to install the packs on the machine, and remove the second part
+            # For example: Choose the option 1 - UPLOAD TO ARTIFACTS SERVER OPTION, and remove the option 2 - UPLOAD DIRECTLY TO YOUR XSOAR MACHINE.
 
-            # TODO: Upload to the artifacts server of your choice.
+            # 1. ========= UPLOAD TO ARTIFACTS SERVER OPTION =========
+
+            # Upload to the artifacts server of your choice.
             # Create a file with the service account data
-            # use the bucket_upload script to upload your packs to google cloud storge
+            # use the bucket_upload script to upload your packs to google cloud storage
             python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
             # Delete the service account file
             rm $GITHUB_WORKSPACE/service_account.json
 
-            # ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
+            # 2. ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
 
             if [ $BRANCH_NAME != master ]; then
 
+              # Get the config_file
               CONFIG_FILE=$(cat xsoar_config.json)
+              # Extract the Marketplace Packs section from the config_file
               MARKETPLACE_PACKS_LIST=$(cat $CONFIG_FILE | jq -r '.marketplace_packs')
               # Upload Custom Packs
               demisto-sdk upload --input-config-file /xsoar_config.json

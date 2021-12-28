@@ -4,12 +4,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
     steps:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
         with:
+          repository: your/repository
           path: repository
           fetch-depth: 0
       - name: Content checkout
@@ -32,12 +31,17 @@ jobs:
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
           echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
           echo "ARTIFACTS_FOLDER=/home/runner/work/repository/repository/content/artifacts" >> $GITHUB_ENV
+          echo "NEW_PACKS_FOLDER=/home/runner/work/repository/repository/content/new_packs_zips" >> $GITHUB_ENV
           echo "DEMISTO_README_VALIDATION=false" >> $GITHUB_ENV
 
-          echo "BRANCH_NAME=${REF#refs/heads/}" >> $GITHUB_ENV
-          PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/ --prev-ver ${DEFAULT_BRANCH})
+          BRANCH_NAME=${REF#refs/heads/}
+          PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/)
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
-          # echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
+          echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
+
+          # Copy Base pack from content to your repository. Needed for linting.
+          cp -r $GITHUB_WORKSPACE/content/Packs/Base $GITHUB_WORKSPACE/repository/Packs
+
       - name: Prepare Venv
         run: |
           cd $GITHUB_WORKSPACE/content/
@@ -73,8 +77,6 @@ jobs:
 
             # Merge id-sets and copy to artifacts folder
             demisto-sdk merge-id-sets -i1 ./Tests/id_set.json -i2 ./Tests/content-id_set.json -o ./Tests/id_set.json
-
-            mkdir -p ${ARTIFACTS_FOLDER}
             cp "./Tests/id_set.json" "$ARTIFACTS_FOLDER/id_set.json"
           else
             echo "No packs has changed, skipping step."
@@ -88,7 +90,7 @@ jobs:
 
           # Run validate on all changed files
           # You can choose what validations to use in the .demisto-sdk-conf file
-          demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped --prev-ver origin/${DEFAULT_BRANCH}
+          demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped
       - name: Run Unit Testing and Lint
         if: always()
         run: |
@@ -106,7 +108,7 @@ jobs:
 
           # Run lint on all changed files
           # You can choose what lint checks to use in the .demisto-sdk-conf file
-          demisto-sdk lint -g --prev-ver ${DEFAULT_BRANCH}
+          demisto-sdk lint -g
       - name: Create Packs Artifacts
         run: |
           if [ $PACKS_CHANGED ]; then
@@ -120,26 +122,13 @@ jobs:
           else
             echo "No packs has changed, skipping step."
           fi
-      - uses: actions/upload-artifact@v2
-        with:
-          name: "artifacts-${{ github.run_id }}"
-          path: ${{ env.ARTIFACTS_FOLDER }}
-          retention-days: 1
-    outputs:
-      branch_name: ${{ env.BRANCH_NAME }}
-      packs_changed: ${{ env.PACKS_CHANGED }}
-
-  upload_artifacts:
-    needs: [build]
-    if: ${{ needs.build.outputs.packs_changed != '' }}
-    uses: craigsands/content-ci-cd-template/.github/workflows/upload-artifacts.yml@craigsands/enhance-cicd-workflow
-    with:
-      branch_name: ${{ needs.build.outputs.branch_name }}
-      pack_names: ${{ needs.build.outputs.packs_changed }}
-      artifact_folder: "artifacts-${{ github.run_id }}"
-    secrets:
-      storage_provider: ${{ secrets.STORAGE_PROVIDER }}
-      bucket_name: ${{ secrets.BUCKET_NAME }}
-      aws_assume_role: ${{ secrets.AWS_ASSUME_ROLE }}
-      workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}
-      service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - name: Upload Packs to Artifacts Server
+        env:
+          REF: ${{ github.ref }}
+        run : |
+          if [ $PACKS_CHANGED ]; then
+            BRANCH_NAME=${REF#refs/heads/}
+            # TODO - Upload to the artifacts server of your choice.
+          else
+            echo "No packs has changed, skipping step."
+          fi

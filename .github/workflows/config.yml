@@ -4,6 +4,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
     steps:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
@@ -34,7 +36,7 @@ jobs:
           echo "DEMISTO_README_VALIDATION=false" >> $GITHUB_ENV
 
           BRANCH_NAME=${REF#refs/heads/}
-          PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/)
+          PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/ --prev-ver ${DEFAULT_BRANCH})
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
           echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
 
@@ -89,7 +91,7 @@ jobs:
 
           # Run validate on all changed files
           # You can choose what validations to use in the .demisto-sdk-conf file
-          demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped
+          demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped --prev-ver origin/${DEFAULT_BRANCH}
       - name: Run Unit Testing and Lint
         if: always()
         run: |
@@ -107,7 +109,7 @@ jobs:
 
           # Run lint on all changed files
           # You can choose what lint checks to use in the .demisto-sdk-conf file
-          demisto-sdk lint -g
+          demisto-sdk lint -g --prev-ver ${DEFAULT_BRANCH}
       - name: Create Packs Artifacts
         run: |
           if [ $PACKS_CHANGED ]; then

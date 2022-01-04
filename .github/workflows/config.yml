@@ -131,6 +131,7 @@ jobs:
 
             # Select the way you want to install the packs on the machine, and remove the second part
             # For example: Choose the option 1 - UPLOAD TO ARTIFACTS SERVER OPTION, and remove the option 2 - UPLOAD DIRECTLY TO YOUR XSOAR MACHINE.
+            # For more information - https://xsoar.pan.dev/docs/reference/articles/xsoar-ci-cd#to-deploy-content
 
             # 1. ========= UPLOAD TO ARTIFACTS SERVER OPTION =========
 

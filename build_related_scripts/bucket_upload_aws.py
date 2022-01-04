@@ -30,7 +30,7 @@ def option_handler() -> argparse.Namespace:
         Namespace: Parsed arguments object.
 
     """
-    parser = argparse.ArgumentParser(description='Upload packs to xsoar-content-gold bucket.')
+    parser = argparse.ArgumentParser(description='Upload packs to your bucket.')
     parser.add_argument('--bucket_name', required=True, help='The bucket name to upload packs to.')
     parser.add_argument('-d', '--packs_directory', required=True, help='The path to the directory with the packs to upload.', type=dir_path)
     parser.add_argument('-b', '--branch_name', required=True, help='The branch name that the upload is running from.')

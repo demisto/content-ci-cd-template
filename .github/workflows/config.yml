@@ -8,7 +8,6 @@ jobs:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
         with:
-          repository: your/repository
           path: repository
           fetch-depth: 0
       - name: Content checkout

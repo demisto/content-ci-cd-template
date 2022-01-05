@@ -9,3 +9,13 @@ no_xsoar_linter=true
 no_pylint=true
 no_test=true
 no_pwsh_analyze=true
+
+[validate]
+no_conf_json=true
+allow_skipped=true
+quite_bc_validation=true
+skip_schema_check=true
+no_docker_checks=true
+skip_pack_release_notes=true
+id_set=true
+

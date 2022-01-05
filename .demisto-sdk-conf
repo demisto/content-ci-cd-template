@@ -9,6 +9,3 @@ no_xsoar_linter=true
 no_pylint=true
 no_test=true
 no_pwsh_analyze=true
-no_coverage=true
-no_pwsh_test=true
-no_pwsh_analyze=true

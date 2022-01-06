@@ -28,7 +28,7 @@ def option_handler() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(description='Collect the packs that has changed.')
     parser.add_argument('-rp', '--repo_path', help='The path to the required repo.', type=dir_path)
-    parser.add_argument('--prev-ver', default='main', help='Previous branch or SHA1 commit to run checks against.')
+    parser.add_argument('--prev-ver', default='master', help='Previous branch or SHA1 commit to run checks against.')
     return parser.parse_args()
 
 

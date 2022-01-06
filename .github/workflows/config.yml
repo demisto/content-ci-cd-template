@@ -29,11 +29,7 @@ jobs:
         run: |
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
           echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
-
-          ARTIFACTS_FOLDER=/home/runner/work/repository/repository/content/artifacts
-          echo "ARTIFACTS_FOLDER=${ARTIFACTS_FOLDER}" >> $GITHUB_ENV
-          mkdir -p ${ARTIFACTS_FOLDER}
-          
+          echo "ARTIFACTS_FOLDER=/home/runner/work/repository/repository/content/artifacts" >> $GITHUB_ENV
           echo "NEW_PACKS_FOLDER=/home/runner/work/repository/repository/content/new_packs_zips" >> $GITHUB_ENV
           echo "DEMISTO_README_VALIDATION=false" >> $GITHUB_ENV
 
@@ -43,10 +39,13 @@ jobs:
           echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
 
           # Copy Base pack from content to your repository. Needed for linting.
-          cp -r $GITHUB_WORKSPACE/content/Packs/Base $GITHUB_WORKSPACE/repository/Packs
+          # cp -r $GITHUB_WORKSPACE/content/Packs/Base $GITHUB_WORKSPACE/repository/Packs
 
       - name: Prepare Venv
         run: |
+          mkdir -p ${ARTIFACTS_FOLDER}
+          mkdir -p ${NEW_PACKS_FOLDER}
+
           cd $GITHUB_WORKSPACE/content/
 
           if [ ! -e "venv" ]; then
@@ -88,6 +87,7 @@ jobs:
         if: always()
         run: |
           source $GITHUB_WORKSPACE/content/venv/bin/activate
+          export NODE_PATH=$GITHUB_WORKSPACE/content/node_modules
 
           cd $GITHUB_WORKSPACE/repository
 

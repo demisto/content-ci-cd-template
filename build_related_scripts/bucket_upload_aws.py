@@ -1,15 +1,15 @@
 import argparse
+import boto3
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Dict, Optional
 import zipfile
 from prettytable import PrettyTable
 
-from google.cloud import storage
+s3 = boto3.resource('s3')
 
-
-MAIN_BRANCH = 'master'
 MAIN_BUCKET_PACK_PATH_FORMAT = 'content/packs/{pack_name}/{pack_version}/{pack_zip_name}'
 BRANCH_BUCKET_PACK_PATH_FORMAT = 'builds/{branch_name}/packs/{pack_name}/{pack_version}/{pack_zip_name}'
 
@@ -30,26 +30,27 @@ def option_handler() -> argparse.Namespace:
         Namespace: Parsed arguments object.
 
     """
-    parser = argparse.ArgumentParser(description='Upload packs to xsoar-content-gold bucket.')
+    parser = argparse.ArgumentParser(description='Upload packs to your bucket.')
     parser.add_argument('--bucket_name', required=True, help='The bucket name to upload packs to.')
-    parser.add_argument('-sa', '--service_account', help='The authorization data for the bucket access.')
-    parser.add_argument('-d', '--packs_directory', help='The path to the directory with the packs to upload.', type=dir_path)
-    parser.add_argument('-b', '--branch_name', help='The branch name that the upload is running from.')
+    parser.add_argument('-d', '--packs_directory', required=True, help='The path to the directory with the packs to upload.', type=dir_path)
+    parser.add_argument('-b', '--branch_name', required=True, help='The branch name that the upload is running from.')
+    parser.add_argument('--default_branch', default='main', help='The name of the default branch.')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose logging.')
     return parser.parse_args()
 
 
-def init_bucket(bucket_name: str, service_account: str) -> Optional[storage.Bucket]:
+def init_bucket(bucket_name: str) -> Optional[s3.Bucket]:
     """Initiate bucket connection.
 
     Args:
         service_account (str): The path to the service account file.
 
     Returns:
-        Bucket. Initialized xsoar-content-gold bucket object.
+        Bucket. Initialized AWS S3 bucket object.
     """
+    logging.info(f"Initializing bucket '{bucket_name}'.")
     try:
-        storage_client = storage.Client.from_service_account_json(service_account)
-        bucket = storage_client.bucket(bucket_name)
+        bucket = s3.Bucket(bucket_name)
     except Exception as e:
         print(f'An error occurred while initiating bucket.\n{e}')
         return
@@ -57,11 +58,11 @@ def init_bucket(bucket_name: str, service_account: str) -> Optional[storage.Buck
     return bucket
 
 
-def upload_to_bucket(bucket: storage.Bucket, pack_path: str, destination_path: str) -> bool:
+def upload_to_bucket(bucket: s3.Bucket, pack_path: str, destination_path: str) -> bool:
     """Uploads a pack to the desired place in the bucket.
 
     Args:
-        bucket (storage.Bucket): Initialized xsoar-content-gold bucket object.
+        bucket (s3.Bucket): Initialized AWS S3 bucket object.
         pack_path (str): The path to the pack file to upload.
         destination_path (str): The path to upload the pack to.
 
@@ -69,27 +70,28 @@ def upload_to_bucket(bucket: storage.Bucket, pack_path: str, destination_path: s
         bool. Whether the upload succeeded or not.
     """
     try:
-        blob = bucket.blob(destination_path)
-        blob.upload_from_filename(pack_path)
+        bucket.upload_file(pack_path, destination_path)
         return True
     except Exception as e:
         print(f'An error occurred while uploading {pack_path} to bucket.\n{e}')
         return False
 
 
-def upload_packs(bucket: storage.Bucket, packs_directory: Path, branch_name: str) -> Dict[str, bool]:
+def upload_packs(bucket: s3.Bucket, packs_directory: Path, branch_name: str, default_branch: str) -> Dict[str, bool]:
     """
 
     Args:
-        bucket (storage.Bucket): Initialized xsoar-content-gold bucket object.
-        packs_directory (Path): The path of the zipped packs to  upload.
+        bucket (s3.Bucket): Initialized AWS S3 bucket object.
+        packs_directory (Path): The path of the zipped packs to upload.
         branch_name (str): The branch name that the upload is running from.
+        default_branch (str): The name of the default branch, used to determine bucket path format.
 
     Returns:
         Dict[str, bool]. Status for each required pack for upload.
     """
     packs_results: Dict[str, bool] = {}
 
+    logging.info(f"Uploading packs from directory '{packs_directory}'...")
     os.chdir(packs_directory)
     for pack_zip_name in os.listdir():
         if not pack_zip_name.endswith('.zip'):
@@ -101,13 +103,14 @@ def upload_packs(bucket: storage.Bucket, packs_directory: Path, branch_name: str
         upload_result = False
         try:
             pack_path = os.path.join(os.getcwd(), pack_zip_name)
+            logging.info(f"Processing '{pack_name}'...")
             with zipfile.ZipFile(pack_path, 'r') as zip_ref:
                 metadata_content = zip_ref.read('metadata.json')
 
             metadata_json = json.loads(metadata_content)
             pack_version = metadata_json['currentVersion']
 
-            if branch_name == MAIN_BRANCH:
+            if branch_name == default_branch:
                 destination_path = MAIN_BUCKET_PACK_PATH_FORMAT.format(
                     pack_name=pack_name,
                     pack_version=pack_version,
@@ -122,6 +125,7 @@ def upload_packs(bucket: storage.Bucket, packs_directory: Path, branch_name: str
                 )
 
             upload_result = upload_to_bucket(bucket, pack_path, destination_path)
+            logging.info(f"Pack '{pack_path}' uploaded to '{destination_path}'.")
 
         except Exception as e:
             print(f'An error occurred while uploading {pack_zip_name} to the bucket.\n{e}')
@@ -147,17 +151,25 @@ def print_uploads_results_table(packs_results: Dict[str, bool]) -> None:
 
 
 def main():
+    logging.basicConfig()
+
     options = option_handler()
     bucket_name: str = options.bucket_name
-    service_account: str = options.service_account
     packs_directory: Path = options.packs_directory
     branch_name: str = options.branch_name
+    default_branch: str = options.default_branch
+    verbose: bool = options.verbose
 
-    bucket = init_bucket(bucket_name, service_account)
+    if verbose:
+        logging.getLogger().setLevel(logging.INFO)
+
+    logging.info(f"Logging has been enabled with level '{logging.getLevelName(logging.root.level)}'.")
+
+    bucket = init_bucket(bucket_name)
     if not bucket:
         exit(1)
 
-    packs_results = upload_packs(bucket, packs_directory, branch_name)
+    packs_results = upload_packs(bucket, packs_directory, branch_name, default_branch)
 
     if packs_results:
         print_uploads_results_table(packs_results)

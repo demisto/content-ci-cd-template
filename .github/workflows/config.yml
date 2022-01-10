@@ -131,6 +131,8 @@ jobs:
       - name: Upload Packs to Artifacts Server
         run : |
           if [ $PACKS_CHANGED ]; then
+            echo "Uploading artifacts ${PACKS_CHANGED}."
+
             # Select the way you want to install the packs on the machine, and remove the second part
             # For example: Choose the option 1 - UPLOAD TO ARTIFACTS SERVER OPTION, and remove the option 2 - UPLOAD DIRECTLY TO YOUR XSOAR MACHINE.
             # For more information - https://xsoar.pan.dev/docs/reference/articles/xsoar-ci-cd#to-deploy-content
@@ -147,6 +149,7 @@ jobs:
             # 2. ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
 
             if [ $BRANCH_NAME != master ]; then
+              echo "Uploading packs to XSOAR."
 
               # Get the config_file
               #CONFIG_FILE=$(cat xsoar_config.json)

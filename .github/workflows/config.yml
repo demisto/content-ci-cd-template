@@ -30,7 +30,6 @@ jobs:
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
           echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
           echo "ARTIFACTS_FOLDER=/home/runner/work/repository/repository/content/artifacts" >> $GITHUB_ENV
-          echo "NEW_PACKS_FOLDER=/home/runner/work/repository/repository/content/new_packs_zips" >> $GITHUB_ENV
           echo "DEMISTO_README_VALIDATION=false" >> $GITHUB_ENV
 
           BRANCH_NAME=${REF#refs/heads/}
@@ -44,8 +43,7 @@ jobs:
       - name: Prepare Venv
         run: |
           mkdir -p ${ARTIFACTS_FOLDER}
-          mkdir -p ${NEW_PACKS_FOLDER}
-
+          
           cd $GITHUB_WORKSPACE/content/
 
           if [ ! -e "venv" ]; then
@@ -141,7 +139,7 @@ jobs:
             # Upload to the artifacts server of your choice.
             # Create a file with the service account data
             # use the bucket_upload script to upload your packs to google cloud storage
-            python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
+            python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $ARTIFACTS_FOLDER --branch_name $BRANCH_NAME
             # Delete the service account file
             rm $GITHUB_WORKSPACE/service_account.json
 

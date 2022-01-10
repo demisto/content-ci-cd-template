@@ -4,6 +4,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: ${{ github.ref.name }}
+      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      DEMISTO_README_VALIDATION: false
+      DEMISTO_SDK_GITHUB_TOKEN: ${{ secrets.DEMISTO_SDK_GITHUB_TOKEN }}
     steps:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
@@ -24,26 +29,19 @@ jobs:
           pip install --upgrade pip
           pip install -r ${GITHUB_WORKSPACE}/repository/requirements.txt
       - name: Prepare Environment
-        env:
-          REF: ${{ github.ref }}
         run: |
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
           echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
-          echo "ARTIFACTS_FOLDER=/home/runner/work/repository/repository/content/artifacts" >> $GITHUB_ENV
-          echo "DEMISTO_README_VALIDATION=false" >> $GITHUB_ENV
-
-          BRANCH_NAME=${REF#refs/heads/}
-          PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/)
+          echo "ARTIFACTS_FOLDER=${GITHUB_WORKSPACE}/repository/content/artifacts" >> $GITHUB_ENV
+          
+          PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/ --prev-ver ${DEFAULT_BRANCH})
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
-          echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
-
+          
           # Copy Base pack from content to your repository. Needed for linting.
-          # cp -r $GITHUB_WORKSPACE/content/Packs/Base $GITHUB_WORKSPACE/repository/Packs
+          cp -r $GITHUB_WORKSPACE/content/Packs/Base $GITHUB_WORKSPACE/repository/Packs
 
       - name: Prepare Venv
-        run: |
-          mkdir -p ${ARTIFACTS_FOLDER}
-          
+        run: |          
           cd $GITHUB_WORKSPACE/content/
 
           if [ ! -e "venv" ]; then
@@ -77,6 +75,8 @@ jobs:
 
             # Merge id-sets and copy to artifacts folder
             demisto-sdk merge-id-sets -i1 ./Tests/id_set.json -i2 ./Tests/content-id_set.json -o ./Tests/id_set.json
+            
+            mkdir -p ${ARTIFACTS_FOLDER}
             cp "./Tests/id_set.json" "$ARTIFACTS_FOLDER/id_set.json"
           else
             echo "No packs has changed, skipping step."
@@ -89,9 +89,13 @@ jobs:
 
           cd $GITHUB_WORKSPACE/repository
 
+          mkdir -p $GITHUB_WORKSPACE/repository/Tests/Marketplace
+          cp $GITHUB_WORKSPACE/content/Tests/Marketplace/approved_tags.json $GITHUB_WORKSPACE/repository/Tests/Marketplace/
+          cp $GITHUB_WORKSPACE/content/Tests/Marketplace/approved_usecases.json $GITHUB_WORKSPACE/repository/Tests/Marketplace/
+
           # Run validate on all changed files
           # You can choose what validations to use in the .demisto-sdk-conf file
-          demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped
+          demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped --prev-ver ${DEFAULT_BRANCH}
       - name: Run Unit Testing and Lint
         if: always()
         run: |
@@ -100,16 +104,17 @@ jobs:
           cd $GITHUB_WORKSPACE/repository
 
           # Copy necessary files
-          cp $GITHUB_WORKSPACE/content/Tests/demistomock/demistomock.py ./
-          cp $GITHUB_WORKSPACE/content/Tests/demistomock/demistomock.ps1 ./
-          cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPython/CommonServerPython.py ./
-          cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPowerShell/CommonServerPowerShell.ps1 ./
-          mkdir -p ./dev_envs/pytest/
-          cp $GITHUB_WORKSPACE/content/Tests/scripts/dev_envs/pytest/conftest.py ./dev_envs/pytest/
+          mkdir -p $GITHUB_WORKSPACE/repository/Tests/demistomock
+          cp $GITHUB_WORKSPACE/content/Tests/demistomock/demistomock.py $GITHUB_WORKSPACE/repository/Tests/demistomock/.
+          cp $GITHUB_WORKSPACE/content/Tests/demistomock/demistomock.ps1 $GITHUB_WORKSPACE/repository/Tests/demistomock/.
+          #cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPython/CommonServerPython.py ./
+          #cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPowerShell/CommonServerPowerShell.ps1 ./
+          mkdir -p $GITHUB_WORKSPACE/repository/Tests/scripts/dev_envs/pytest/
+          cp $GITHUB_WORKSPACE/content/Tests/scripts/dev_envs/pytest/conftest.py $GITHUB_WORKSPACE/repository/Tests/scripts/dev_envs/pytest/.
 
           # Run lint on all changed files
           # You can choose what lint checks to use in the .demisto-sdk-conf file
-          demisto-sdk lint -g
+          demisto-sdk lint -g --prev-ver ${DEFAULT_BRANCH}
       - name: Create Packs Artifacts
         run: |
           if [ $PACKS_CHANGED ]; then

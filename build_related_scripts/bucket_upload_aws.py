@@ -118,7 +118,7 @@ def upload_packs(bucket: s3.Bucket, packs_directory: Path, branch_name: str, def
                 )
             else:
                 destination_path = BRANCH_BUCKET_PACK_PATH_FORMAT.format(
-                    branch_name=branch_name,
+                    branch_name=branch_name.replace('/', '_'),
                     pack_name=pack_name,
                     pack_version=pack_version,
                     pack_zip_name=pack_zip_name,

@@ -2,3 +2,8 @@ demisto-sdk
 virtualenv
 jsonschema
 gsutil
+
+# for bucket_upload_aws.py
+boto3
+boto3-stubs
+boto3-stubs[s3]

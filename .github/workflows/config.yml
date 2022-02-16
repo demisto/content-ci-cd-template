@@ -39,9 +39,6 @@ jobs:
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
           echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
 
-          # Copy Base pack from content to your repository. Needed for linting.
-          cp -r $GITHUB_WORKSPACE/content/Packs/Base $GITHUB_WORKSPACE/repository/Packs
-
       - name: Prepare Venv
         run: |
           cd $GITHUB_WORKSPACE/content/

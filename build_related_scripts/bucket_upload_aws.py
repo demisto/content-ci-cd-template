@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import argparse
 import boto3
 import json
@@ -6,7 +8,8 @@ import os
 from pathlib import Path
 from typing import Dict, Optional
 import zipfile
-from prettytable import PrettyTable
+from prettytable import PrettyTable  # type: ignore
+from mypy_boto3_s3.service_resource import Bucket
 
 s3 = boto3.resource('s3')
 
@@ -32,14 +35,15 @@ def option_handler() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(description='Upload packs to your bucket.')
     parser.add_argument('--bucket_name', required=True, help='The bucket name to upload packs to.')
-    parser.add_argument('-d', '--packs_directory', required=True, help='The path to the directory with the packs to upload.', type=dir_path)
+    parser.add_argument('-d', '--packs_directory', required=True,
+                        help='The path to the directory with the packs to upload.', type=dir_path)
     parser.add_argument('-b', '--branch_name', required=True, help='The branch name that the upload is running from.')
     parser.add_argument('--default_branch', default='main', help='The name of the default branch.')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose logging.')
     return parser.parse_args()
 
 
-def init_bucket(bucket_name: str) -> Optional[s3.Bucket]:
+def init_bucket(bucket_name: str) -> Optional[Bucket]:
     """Initiate bucket connection.
 
     Args:
@@ -53,16 +57,16 @@ def init_bucket(bucket_name: str) -> Optional[s3.Bucket]:
         bucket = s3.Bucket(bucket_name)
     except Exception as e:
         print(f'An error occurred while initiating bucket.\n{e}')
-        return
+        return None
 
     return bucket
 
 
-def upload_to_bucket(bucket: s3.Bucket, pack_path: str, destination_path: str) -> bool:
+def upload_to_bucket(bucket: Bucket, pack_path: str, destination_path: str) -> bool:
     """Uploads a pack to the desired place in the bucket.
 
     Args:
-        bucket (s3.Bucket): Initialized AWS S3 bucket object.
+        bucket (Bucket): Initialized AWS S3 bucket object.
         pack_path (str): The path to the pack file to upload.
         destination_path (str): The path to upload the pack to.
 
@@ -77,11 +81,11 @@ def upload_to_bucket(bucket: s3.Bucket, pack_path: str, destination_path: str) -
         return False
 
 
-def upload_packs(bucket: s3.Bucket, packs_directory: Path, branch_name: str, default_branch: str) -> Dict[str, bool]:
+def upload_packs(bucket: Bucket, packs_directory: Path, branch_name: str, default_branch: str) -> Dict[str, bool]:
     """
 
     Args:
-        bucket (s3.Bucket): Initialized AWS S3 bucket object.
+        bucket (Bucket): Initialized AWS S3 bucket object.
         packs_directory (Path): The path of the zipped packs to upload.
         branch_name (str): The branch name that the upload is running from.
         default_branch (str): The name of the default branch, used to determine bucket path format.

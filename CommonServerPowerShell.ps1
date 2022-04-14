@@ -9,7 +9,7 @@ enum ServerLogLevel {
     debug
     info
     error
-}
+
 
 enum EntryTypes {
     note = 1

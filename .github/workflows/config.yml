@@ -46,12 +46,12 @@ jobs:
           if [ ! -e "venv" ]; then
             echo "installing venv"
             NO_HOOKS=1 SETUP_PY2=no .hooks/bootstrap
-            source ./venv/bin/activate
+            source ./.venv/bin/activate
             pip3 install -r ${GITHUB_WORKSPACE}/repository/requirements.txt
             demisto-sdk --version
           else
             echo "venv exists (from cache). activating"
-            source ./venv/bin/activate
+            source ./.venv/bin/activate
           fi
 
           # Install node packages
@@ -64,7 +64,7 @@ jobs:
         run: |
           if [ $PACKS_CHANGED ]; then
             cd $GITHUB_WORKSPACE/repository/
-            source $GITHUB_WORKSPACE/content/venv/bin/activate
+            source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
             # Download content's
             gsutil cp gs://marketplace-dist/content/id_set.json ./Tests/content-id_set.json
@@ -81,7 +81,7 @@ jobs:
       - name: Validate Files and Yaml
         if: always()
         run: |
-          source $GITHUB_WORKSPACE/content/venv/bin/activate
+          source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
           cd $GITHUB_WORKSPACE/repository
 
@@ -91,7 +91,7 @@ jobs:
       - name: Run Unit Testing and Lint
         if: always()
         run: |
-          source $GITHUB_WORKSPACE/content/venv/bin/activate
+          source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
           cd $GITHUB_WORKSPACE/repository
 
@@ -109,7 +109,7 @@ jobs:
       - name: Create Packs Artifacts
         run: |
           if [ $PACKS_CHANGED ]; then
-            source $GITHUB_WORKSPACE/content/venv/bin/activate
+            source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
             cd $GITHUB_WORKSPACE/repository/
             for pack in Packs/*

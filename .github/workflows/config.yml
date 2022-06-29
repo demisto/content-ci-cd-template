@@ -142,14 +142,16 @@ jobs:
 
             # 2. ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
 
-            if [ $BRANCH_NAME != master ]; then
-
+            if [ $BRANCH_NAME == master ]; then
+              source $GITHUB_WORKSPACE/content/.venv/bin/activate
+              cd $GITHUB_WORKSPACE/repository/
               # Get the config_file
-              CONFIG_FILE=$(cat xsoar_config.json)
+
+              CONFIG_FILE=$GITHUB_WORKSPACE/repository/xsoar_config.json
               # Extract the Marketplace Packs section from the config_file
               MARKETPLACE_PACKS_LIST=$(cat $CONFIG_FILE | jq -r '.marketplace_packs')
               # Upload Custom Packs
-              demisto-sdk upload --input-config-file /xsoar_config.json
+              demisto-sdk upload --input-config-file xsoar_config.json
               # Upload MarketPlace Packs
               python3 build_related_scripts/MarketPlaceInstallerFromCICD.py --marketplace-packs-list $MARKETPLACE_PACKS_LIST
             fi

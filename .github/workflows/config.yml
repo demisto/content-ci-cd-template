@@ -8,7 +8,7 @@ jobs:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
         with:
-          repository: ennozdd/content-ci-cd-template
+          repository: your/repository
           path: repository
           fetch-depth: 0
       - name: Content checkout
@@ -27,8 +27,12 @@ jobs:
       - name: Prepare Environment
         env:
           REF: ${{ github.ref }}
+          DEMISTO_BASE_URL: ${{ secrets.DEMISTO_BASE_URL }}
+          DEMISTO_API_KEY: ${{ secrets.DEMISTO_API_KEY }}
         run: |
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
+          echo "DEMISTO_BASE_URL="$DEMISTO_BASE_URL >> $GITHUB_ENV
+          echo "DEMISTO_API_KEY="$DEMISTO_API_KEY >> $GITHUB_ENV
           echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
           echo "ARTIFACTS_FOLDER=${GITHUB_WORKSPACE}/content/artifacts" >> $GITHUB_ENV
           echo "NEW_PACKS_FOLDER=${GITHUB_WORKSPACE}/content/new_packs_zips" >> $GITHUB_ENV
@@ -136,6 +140,7 @@ jobs:
             # Upload to the artifacts server of your choice.
             # Create a file with the service account data
             # use the bucket_upload script to upload your packs to google cloud storage
+            mkdir $NEW_PACKS_FOLDER
             python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
             # Delete the service account file
             rm $GITHUB_WORKSPACE/service_account.json
@@ -145,8 +150,8 @@ jobs:
             if [ $BRANCH_NAME == master ]; then
               source $GITHUB_WORKSPACE/content/.venv/bin/activate
               cd $GITHUB_WORKSPACE/repository/
-              # Get the config_file
 
+              # Get the config_file
               CONFIG_FILE=$GITHUB_WORKSPACE/repository/xsoar_config.json
               # Extract the Marketplace Packs section from the config_file
               MARKETPLACE_PACKS_LIST=$(cat $CONFIG_FILE | jq -r '.marketplace_packs')

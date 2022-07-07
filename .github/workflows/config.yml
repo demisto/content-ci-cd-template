@@ -49,6 +49,7 @@ jobs:
 
           if [ ! -e "venv" ]; then
             echo "installing venv"
+            chmod +x ${GITHUB_WORKSPACE}/repository/.hooks/bootstrap
             NO_HOOKS=1 SETUP_PY2=no ${GITHUB_WORKSPACE}/repository/.hooks/bootstrap  # demisto/content switched to poetry so this repo should use the local bootstrap
             source ./venv/bin/activate
             pip3 install -r ${GITHUB_WORKSPACE}/repository/requirements.txt

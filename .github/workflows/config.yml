@@ -8,7 +8,7 @@ jobs:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
         with:
-          repository: your/repository
+          repository: ennozdd/content-ci-cd-template
           path: repository
           fetch-depth: 0
       - name: Content checkout
@@ -52,7 +52,6 @@ jobs:
             chmod +x ${GITHUB_WORKSPACE}/repository/.hooks/bootstrap
             NO_HOOKS=1 SETUP_PY2=no ${GITHUB_WORKSPACE}/repository/.hooks/bootstrap  
             source ./.venv/bin/activate
-            pip3 install -r ${GITHUB_WORKSPACE}/repository/requirements.txt
             demisto-sdk --version
           else
             echo "venv exists (from cache). activating"

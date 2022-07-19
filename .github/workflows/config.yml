@@ -8,7 +8,11 @@ jobs:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
         with:
+<<<<<<< HEAD
           repository: your/repository
+=======
+          repository: ${{ github.repository }}
+>>>>>>> tester_ennozdd
           path: repository
           fetch-depth: 0
       - name: Content checkout

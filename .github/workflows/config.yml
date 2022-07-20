@@ -31,8 +31,6 @@ jobs:
           DEMISTO_API_KEY: ${{ secrets.DEMISTO_API_KEY }}
         run: |
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
-          echo "DEMISTO_BASE_URL="$DEMISTO_BASE_URL >> $GITHUB_ENV
-          echo "DEMISTO_API_KEY="$DEMISTO_API_KEY >> $GITHUB_ENV
           echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
           echo "ARTIFACTS_FOLDER=${GITHUB_WORKSPACE}/content/artifacts" >> $GITHUB_ENV
           echo "NEW_PACKS_FOLDER=${GITHUB_WORKSPACE}/content/new_packs_zips" >> $GITHUB_ENV

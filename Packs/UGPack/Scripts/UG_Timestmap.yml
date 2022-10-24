@@ -1,0 +1,28 @@
+commonfields:
+  id: UG_Timestmap
+  version: 1
+contentitemexportablefields:
+  contentitemfields:
+    packID: mviNewPackName
+    packName: mviCP
+    itemVersion: 1.0.0
+    fromServerVersion: ""
+    toServerVersion: ""
+    definitionid: ""
+vcShouldKeepItemLegacyProdMachine: false
+name: UG_Timestmap
+script: |-
+  a = demisto.executeCommand("TimeStampToDate", {"value":"1525006939"})[0].get("Contents")
+  demisto.executeCommand("Set", {"key":"DateKey","value":a})
+type: python
+tags: []
+enabled: true
+system: true
+scripttarget: 0
+subtype: python3
+pswd: ""
+runonce: false
+dockerimage: demisto/python3:3.10.8.36650
+runas: DBotWeakRole
+engineinfo: {}
+mainengineinfo: {}

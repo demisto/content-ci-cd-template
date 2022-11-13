@@ -1,0 +1,17 @@
+commonfields:
+  id: 6fd05375-cf81-42ce-8b29-c9902302d917
+  version: -1
+dockerimage: demisto/python3:3.10.8.37233
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: TestingForCICD
+pswd: ""
+runas: DBotWeakRole
+runonce: false
+script: ''
+scripttarget: 0
+subtype: python3
+tags:
+- Test
+type: python

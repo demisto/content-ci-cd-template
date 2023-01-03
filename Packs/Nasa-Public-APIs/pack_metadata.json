@@ -1,0 +1,24 @@
+{
+    "name": "Nasa Public APIs",
+    "description": "A pack made out of boredom and curiosity of XSOAR CI/CD. The packs consist of an intergration that utilizes Nasa Public APIs to provide pictures and matrics. ",
+    "support": "community",
+    "currentVersion": "1.0.0",
+    "author": "Samuel Kamar",
+    "url": "https://live.paloaltonetworks.com/t5/cortex-xsoar-discussions/bd-p/Cortex_XSOAR_Discussions",
+    "email": "",
+    "categories": [
+        "Utilities"
+    ],
+    "tags": [
+        "Nasa",
+        "Space",
+        "fun"
+    ],
+    "useCases": [],
+    "keywords": [],
+    "marketplaces": [
+        "xsoar",
+        "marketplacev2"
+    ],
+    "githubUser": []
+}

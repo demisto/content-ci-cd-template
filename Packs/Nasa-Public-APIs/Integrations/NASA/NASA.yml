@@ -1,0 +1,44 @@
+category: Utilities
+commonfields:
+  id: NASA
+  version: -1
+configuration:
+- display: API Key
+  name: apikey
+  required: true
+  type: 4
+- defaultvalue: https://api.nasa.gov/
+  display: URL
+  name: url
+  required: false
+  type: 0
+description: This is the NASA integration for getting the Astronomy Picture of the Day.
+display: NASA
+name: NASA
+script:
+  commands:
+  - arguments:
+    - default: true
+      description: 'Specify the date to get an image. Format: YYYY-MM-DD'
+      name: date
+    - description: 'Used when requesting date for a range of dates. Format: YYYY-MM-DD'
+      name: start_date
+    - description: 'Used when requesting date for a range of dates. Format: YYYY-MM-DD'
+      name: end_date
+    - description: "\tIf this is specified then count randomly chosen images will be returned. Cannot be used with date or start_date and end_date."
+      name: count
+    description: Get the image of the day
+    name: nasa-abod-get-Image
+  - arguments:
+    - description: 'Format: YYYY-MM-DD. Starting date for asteroid search'
+      name: start_date
+    - description: 'Format: YYYY-MM-DD. Ending date for asteroid search. Default: 7 days after start_date.'
+      name: end_date
+    description: Get a list of Near earth object based on a date range
+    name: nasa-neo-feed
+  dockerimage: demisto/python3:3.10.5.31928
+  runonce: false
+  script: ''
+  subtype: python3
+  type: python
+sourcemoduleid: NASA_APOD

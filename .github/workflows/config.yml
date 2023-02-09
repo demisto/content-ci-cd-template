@@ -8,7 +8,7 @@ jobs:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
         with:
-          repository: your/repository
+          repository: kamar101/ci-cd-demo
           path: repository
           fetch-depth: 0
       - name: Content checkout
@@ -46,12 +46,12 @@ jobs:
           if [ ! -e "venv" ]; then
             echo "installing venv"
             NO_HOOKS=1 SETUP_PY2=no .hooks/bootstrap
-            source ./venv/bin/activate
+            source /home/runner/work/ci-cd-demo/ci-cd-demo/content/.venv/bin/activate
             pip3 install -r ${GITHUB_WORKSPACE}/repository/requirements.txt
             demisto-sdk --version
           else
             echo "venv exists (from cache). activating"
-            source ./venv/bin/activate
+            source /home/runner/work/ci-cd-demo/ci-cd-demo/content/.venv/bin/activate
           fi
 
           # Install node packages
@@ -64,7 +64,7 @@ jobs:
         run: |
           if [ $PACKS_CHANGED ]; then
             cd $GITHUB_WORKSPACE/repository/
-            source $GITHUB_WORKSPACE/content/venv/bin/activate
+            source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
             # Download content's
             gsutil cp gs://marketplace-dist/content/id_set.json ./Tests/content-id_set.json
@@ -81,17 +81,17 @@ jobs:
       - name: Validate Files and Yaml
         if: always()
         run: |
-          source $GITHUB_WORKSPACE/content/venv/bin/activate
+          source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
           cd $GITHUB_WORKSPACE/repository
 
           # Run validate on all changed files
           # You can choose what validations to use in the .demisto-sdk-conf file
-          demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped
+          demisto-sdk validate --quiet-bc-validation --no-conf-json --allow-skipped
       - name: Run Unit Testing and Lint
         if: always()
         run: |
-          source $GITHUB_WORKSPACE/content/venv/bin/activate
+          source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
           cd $GITHUB_WORKSPACE/repository
 
@@ -109,7 +109,7 @@ jobs:
       - name: Create Packs Artifacts
         run: |
           if [ $PACKS_CHANGED ]; then
-            source $GITHUB_WORKSPACE/content/venv/bin/activate
+            source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
             cd $GITHUB_WORKSPACE/repository/
             for pack in Packs/*
@@ -122,6 +122,7 @@ jobs:
       - name: Upload Packs to Artifacts Server
         env:
           REF: ${{ github.ref }}
+          SCP: ${{secrets.XSOARCICD}}
         run : |
           if [ $PACKS_CHANGED ]; then
             BRANCH_NAME=${REF#refs/heads/}
@@ -135,24 +136,9 @@ jobs:
             # Upload to the artifacts server of your choice.
             # Create a file with the service account data
             # use the bucket_upload script to upload your packs to google cloud storage
-            python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
+            python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --service_account ${SCP} --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
             # Delete the service account file
             rm $GITHUB_WORKSPACE/service_account.json
-
-            # 2. ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
-
-            if [ $BRANCH_NAME != master ]; then
-
-              # Get the config_file
-              CONFIG_FILE=$(cat xsoar_config.json)
-              # Extract the Marketplace Packs section from the config_file
-              MARKETPLACE_PACKS_LIST=$(cat $CONFIG_FILE | jq -r '.marketplace_packs')
-              # Upload Custom Packs
-              demisto-sdk upload --input-config-file /xsoar_config.json
-              # Upload MarketPlace Packs
-              python3 build_related_scripts/MarketPlaceInstallerFromCICD.py --marketplace-packs-list $MARKETPLACE_PACKS_LIST
-            fi
-
           else
             echo "No packs has changed, skipping step."
           fi

@@ -2,7 +2,7 @@ args:
 - name: user
   required: true
 commonfields:
-  id: 766aeb08-dd26-44cd-8069-a439497d9493
+  id: Ci-CDTestScript
   version: -1
 dockerimage: demisto/python3:3.10.9.46807
 enabled: true

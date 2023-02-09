@@ -8,7 +8,7 @@ jobs:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v2
         with:
-          repository: your/repository
+          repository: kamar101/ci-cd-demo
           path: repository
           fetch-depth: 0
       - name: Content checkout
@@ -138,21 +138,3 @@ jobs:
             python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
             # Delete the service account file
             rm $GITHUB_WORKSPACE/service_account.json
-
-            # 2. ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
-
-            if [ $BRANCH_NAME != master ]; then
-
-              # Get the config_file
-              CONFIG_FILE=$(cat xsoar_config.json)
-              # Extract the Marketplace Packs section from the config_file
-              MARKETPLACE_PACKS_LIST=$(cat $CONFIG_FILE | jq -r '.marketplace_packs')
-              # Upload Custom Packs
-              demisto-sdk upload --input-config-file /xsoar_config.json
-              # Upload MarketPlace Packs
-              python3 build_related_scripts/MarketPlaceInstallerFromCICD.py --marketplace-packs-list $MARKETPLACE_PACKS_LIST
-            fi
-
-          else
-            echo "No packs has changed, skipping step."
-          fi

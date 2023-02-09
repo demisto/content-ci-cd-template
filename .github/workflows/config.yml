@@ -87,7 +87,7 @@ jobs:
 
           # Run validate on all changed files
           # You can choose what validations to use in the .demisto-sdk-conf file
-          demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped
+          demisto-sdk validate --quiet-bc-validation --no-conf-json --allow-skipped
       - name: Run Unit Testing and Lint
         if: always()
         run: |

@@ -3,9 +3,6 @@ from CommonServerPython import *  # noqa: F401
 def hello_user(user):
     return "Hello {}".format(user)
 
-def good_bye_user(user):
-    return "Good Bye {}".format(user)
-
 def main():
     args = demisto.args()
     user = args.get("user")

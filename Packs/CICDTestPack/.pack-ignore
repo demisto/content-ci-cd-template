@@ -1,0 +1,14 @@
+[file:Packs/TestPacakage/pack_metadata.json]
+ignore=BA115
+
+[file:/home/runner/work/ci-cd-demo/ci-cd-demo/repository/Packs/CICDTestPack/Author_image.png]
+ignore=IM108
+
+[file:Packs/CICDTestPack/Author_image.png]
+ignore=IM108
+
+[file:Packs/TestPacakage/Scripts/CiCDTestScript/CiCDTestScript.yml]
+ignore=BA115
+
+[file:/home/runner/work/ci-cd-demo/ci-cd-demo/repository/Packs/CICDTestPack/pack_metadata.json]
+ignore=PA113

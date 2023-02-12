@@ -29,6 +29,7 @@ jobs:
       - name: Prepare Environment
         env:
           REF: ${{ github.ref }}
+          GCP: ${{secrets.WORKFLOW_TOKEN}}
         run: |
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
           echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
@@ -41,7 +42,7 @@ jobs:
           BRANCH_NAME=${REF#refs/heads/}
           PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/)
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
-          echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
+          echo "DEMISTO_SDK_GITHUB_TOKEN=${GCP}" >> $GITHUB_ENV
 
       - name: Prepare Venv
         run: |

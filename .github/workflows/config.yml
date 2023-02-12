@@ -40,6 +40,8 @@ jobs:
           PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/)
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
           echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
+          ls
+          echo "$ARTIFACTS_FOLDER"
 
       - name: Prepare Venv
         run: |
@@ -76,7 +78,6 @@ jobs:
 
             # Merge id-sets and copy to artifacts folder
             demisto-sdk merge-id-sets -i1 ./Tests/id_set.json -i2 ./Tests/content-id_set.json -o ./Tests/id_set.json
-            echo "$ARTIFACTS_FOLDER
             cp "./Tests/id_set.json" "$ARTIFACTS_FOLDER/id_set.json"
           else
             echo "No packs has changed, skipping step."

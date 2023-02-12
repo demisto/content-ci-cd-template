@@ -1,6 +1,8 @@
 name: XSOAR CI/CD
 on:
   push:
+    branches: 
+    - development
 jobs:
   build:
     runs-on: ubuntu-latest

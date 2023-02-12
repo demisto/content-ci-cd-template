@@ -143,7 +143,7 @@ jobs:
             # Create a file with the service account data
             # use the bucket_upload script to upload your packs to google cloud storage
             echo ${SCP} >> service_account.json
-            python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --bucket_name xsoar-artifact --service_account ./service_account.json --packs_directory $ARTIFACTS_FOLDER/uploadable_packs/ --branch_name $BRANCH_NAME
+            python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --bucket_name xsoar-artifact --service_account ./service_account.json --packs_directory $ARTIFACTS_FOLDER --branch_name $BRANCH_NAME
             # Delete the service account file
             # rm $GITHUB_WORKSPACE/service_account.json
           else

@@ -24,13 +24,13 @@ jobs:
           python-version: 3.8.5
       - name: Install pip and requirements
         run: |
-          echo ${{ secrets.WORKFLOW_TOKEN }}
+          echo ${{ secrets.GIT_TOKEN }}
           pip install --upgrade pip
           pip install -r ${GITHUB_WORKSPACE}/repository/requirements.txt
       - name: Prepare Environment
         env:
           REF: ${{ github.ref }}
-          DEMISTO_SDK_GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          DEMISTO_SDK_GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: |
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
           echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV

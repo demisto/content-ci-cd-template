@@ -1,0 +1,21 @@
+{
+    "name": "CI CD Test",
+    "description": "A simple package to test CI CD",
+    "support": "developer",
+    "currentVersion": "1.0.0",
+    "author": "samuel kamar",
+    "url": "",
+    "email": "",
+    "categories": [
+        "Utilities"
+    ],
+    "tags": [
+        "test"
+    ],
+    "useCases": [],
+    "keywords": [],
+    "marketplaces": [
+        "xsoar"
+    ],
+    "githubUser": []
+}

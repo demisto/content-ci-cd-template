@@ -24,7 +24,6 @@ jobs:
           python-version: 3.8.5
       - name: Install pip and requirements
         run: |
-          echo ${{ secrets.GIT_TOKEN }}
           pip install --upgrade pip
           pip install -r ${GITHUB_WORKSPACE}/repository/requirements.txt
       - name: Prepare Environment
@@ -43,7 +42,7 @@ jobs:
           BRANCH_NAME=${REF#refs/heads/}
           PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/)
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
-          echo "export DEMISTO_SDK_GITHUB_TOKEN=${DEMISTO_SDK_GITHUB_TOKEN}" >> $GITHUB_ENV
+          echo "DEMISTO_SDK_GITHUB_TOKEN=${DEMISTO_SDK_GITHUB_TOKEN}" >> $GITHUB_ENV
           
 
       - name: Prepare Venv

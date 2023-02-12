@@ -42,7 +42,7 @@ jobs:
           PACKS_CHANGED=$(python $GITHUB_WORKSPACE/repository/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/repository/)
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
           echo "DEMISTO_SDK_GITHUB_TOKEN=<your-github-token>" >> $GITHUB_ENV
-          ls
+          ls /home/runner/work/ci-cd-demo/ci-cd-demo/content/artifact
           echo $ARTIFACTS_FOLDER
 
       - name: Prepare Venv

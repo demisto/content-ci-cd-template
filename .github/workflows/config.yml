@@ -128,7 +128,7 @@ jobs:
       - name: Upload Packs to Artifacts Server
         env:
           REF: ${{ github.ref }}
-          SCP: ${{ secrets.XSOARCICD }}
+          SCP: ${{ secrets.GOOGLE_STORAGE }}
         run : |
           if [ $PACKS_CHANGED ]; then
             BRANCH_NAME=${REF#refs/heads/}

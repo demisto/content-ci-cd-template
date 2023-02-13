@@ -1,0 +1,21 @@
+args:
+- name: user
+  description: "The user name"
+  required: true
+commonfields:
+  id: Ci-CDTest
+  version: -1
+dockerimage: demisto/python3:3.10.10.47713
+enabled: true
+name: Ci-CDTest
+runas: DBotWeakRole
+runonce: false
+script: ''
+scripttarget: 0
+subtype: python3
+tags: []
+type: python
+fromversion: 6.8.0
+tests:
+- No tests (auto formatted)
+comment: "Used to test"

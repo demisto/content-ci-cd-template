@@ -1,0 +1,25 @@
+{
+    "name": "CICD_test",
+    "description": "a cicd test",
+    "support": "community",
+    "currentVersion": "1.0.0",
+    "author": "sam",
+    "url": "https://live.paloaltonetworks.com/t5/cortex-xsoar-discussions/bd-p/Cortex_XSOAR_Discussions",
+    "email": "",
+    "categories": [
+        "Utilities"
+    ],
+    "tags": [
+        "test"
+    ],
+    "useCases": [],
+    "keywords": [],
+    "marketplaces": [
+        "xsoar",
+        "marketplacev2"
+    ],
+    "devEmail": [
+        "sam@sam.com"
+    ],
+    "githubUser": []
+}

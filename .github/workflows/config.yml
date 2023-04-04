@@ -41,7 +41,7 @@ jobs:
 
       - name: Prepare Venv
         run: |
-          brew install poetry
+          curl -sSL https://install.python-poetry.org | python3 -
           cd $GITHUB_WORKSPACE/content/
 
           if [ ! -e "venv" ]; then

@@ -1,0 +1,27 @@
+{
+    "name": "\"CI / CD Example\"",
+    "description": " \"CI / CD Example\"",
+    "support": "community",
+    "currentVersion": "1.0.0",
+    "author": "IbrahimTayara",
+    "url": "https://live.paloaltonetworks.com/t5/cortex-xsoar-discussions/bd-p/Cortex_XSOAR_Discussions",
+    "email": "",
+    "categories": [
+        "Analytics & SIEM"
+    ],
+    "tags": [
+        "Dev"
+    ],
+    "useCases": [],
+    "keywords": [],
+    "marketplaces": [
+        "xsoar",
+        "marketplacev2"
+    ],
+    "devEmail": [
+        "ibrahim.tayara@kyndryl.com"
+    ],
+    "githubUser": [
+        "kynxsoar"
+    ]
+}

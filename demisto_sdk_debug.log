@@ -1,0 +1,218 @@
+[2023-04-03T17:32:01Z] - [MainThread] - [INFO] - __main__.py:199 - Demisto-SDK will soon stop supporting Python 3.8. Please update your python environment.
+[2023-04-03T17:32:01Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-03T17:32:01Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): pypi.org:443
+[2023-04-03T17:32:01Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://pypi.org:443 "GET /pypi/demisto-sdk/json HTTP/1.1" 200 32231
+[2023-04-03T17:32:01Z] - [MainThread] - [INFO] - __main__.py:216 - You are using demisto-sdk 1.12.0.
+[2023-04-03T17:32:54Z] - [MainThread] - [INFO] - initiator.py:423 - Creating pack base files
+[2023-04-03T17:32:54Z] - [MainThread] - [INFO] - initiator.py:369 - Successfully created the pack CICDExample in: Packs\CICDExample
+[2023-04-03T17:35:55Z] - [MainThread] - [INFO] - initiator.py:388 - Created pack metadata at path : Packs\CICDExample\pack_metadata.json
+[2023-04-03T17:37:13Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-03T17:37:13Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): raw.githubusercontent.com:443
+[2023-04-03T17:37:13Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://raw.githubusercontent.com:443 "GET /demisto/content/master/Packs%5CStarterPack%5CIntegrations%5CBaseIntegration%5CREADME_example.md HTTP/1.1" 404 14
+[2023-04-03T17:37:13Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): raw.githubusercontent.com:443
+[2023-04-03T17:37:13Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://raw.githubusercontent.com:443 "GET /demisto/content/master/Packs%5CStarterPack%5CIntegrations%5CBaseIntegration%5CREADME_example.md?token= HTTP/1.1" 404 14
+[2023-04-03T17:37:13Z] - [MainThread] - [DEBUG] - tools.py:487 - You are working in a private repository: "demisto/content".
+The github/gitlab token in your environment is undefined.
+Getting file from local repository instead. 
+If you wish to get the file from the remote repository, 
+Please define your github or gitlab token in your environment.
+`export DEMISTO_SDK_GITHUB_TOKEN=<TOKEN> or`
+export DEMISTO_SDK_GITLAB_TOKEN=<TOKEN>
+[2023-04-03T17:37:13Z] - [MainThread] - [DEBUG] - tools.py:496 - Could not find the old entity file under "https://raw.githubusercontent.com/demisto/content/master/Packs\StarterPack\Integrations\BaseIntegration\README_example.md".
+please make sure that you did not break backward compatibility.
+Reason: 404 Client Error: Not Found for url: https://raw.githubusercontent.com/demisto/content/master/Packs%5CStarterPack%5CIntegrations%5CBaseIntegration%5CREADME_example.md?token=
+[2023-04-03T17:37:13Z] - [MainThread] - [INFO] - initiator.py:974 - Could not fetch remote template - README.md. Using local templates instead.
+[2023-04-03T17:37:19Z] - [MainThread] - [INFO] - initiator.py:663 - Finished creating integration: Packs\CICDExample\Integrations\myIntegration.
+[2023-04-03T17:41:05Z] - [MainThread] - [INFO] - __main__.py:199 - Demisto-SDK will soon stop supporting Python 3.8. Please update your python environment.
+[2023-04-03T17:41:05Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-03T17:41:05Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): pypi.org:443
+[2023-04-03T17:41:05Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://pypi.org:443 "GET /pypi/demisto-sdk/json HTTP/1.1" 200 32231
+[2023-04-03T17:41:06Z] - [MainThread] - [INFO] - __main__.py:216 - You are using demisto-sdk 1.12.0.
+[2023-04-03T17:41:26Z] - [MainThread] - [INFO] - __main__.py:199 - Demisto-SDK will soon stop supporting Python 3.8. Please update your python environment.
+[2023-04-03T17:41:26Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-03T17:41:26Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): pypi.org:443
+[2023-04-03T17:41:26Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://pypi.org:443 "GET /pypi/demisto-sdk/json HTTP/1.1" 200 32231
+[2023-04-03T17:41:26Z] - [MainThread] - [INFO] - __main__.py:216 - You are using demisto-sdk 1.12.0.
+[2023-04-04T09:07:30Z] - [MainThread] - [INFO] - __main__.py:199 - Demisto-SDK will soon stop supporting Python 3.8. Please update your python environment.
+[2023-04-04T09:07:30Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:30Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): pypi.org:443
+[2023-04-04T09:07:30Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://pypi.org:443 "GET /pypi/demisto-sdk/json HTTP/1.1" 200 32231
+[2023-04-04T09:07:30Z] - [MainThread] - [INFO] - __main__.py:216 - You are using demisto-sdk 1.12.0.
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:33Z] - [MainThread] - [INFO] - docker_helper.py:48 - DockerPing - init and login the docker client
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - docker_helper.py:54 - DockerPing - Using docker mounting: True
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:07:33Z] - [MainThread] - [ERROR] - docker_helper.py:59 - DockerPing - Failed to init docker client. Please check that your docker daemon is running.
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'cat-file', '--batch-check'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=<valid stream>)
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:33Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:34Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:35Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:35Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:35Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:35Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:35Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:35Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:52Z] - [MainThread] - [INFO] - __main__.py:199 - Demisto-SDK will soon stop supporting Python 3.8. Please update your python environment.
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): pypi.org:443
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://pypi.org:443 "GET /pypi/demisto-sdk/json HTTP/1.1" 200 32231
+[2023-04-04T09:07:52Z] - [MainThread] - [INFO] - __main__.py:216 - You are using demisto-sdk 1.12.0.
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:52Z] - [MainThread] - [INFO] - docker_helper.py:48 - DockerPing - init and login the docker client
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - docker_helper.py:54 - DockerPing - Using docker mounting: True
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:07:52Z] - [MainThread] - [ERROR] - docker_helper.py:59 - DockerPing - Failed to init docker client. Please check that your docker daemon is running.
+[2023-04-04T09:07:52Z] - [MainThread] - [WARNING] - base_validator.py:249 - [WARNING]: C:\Users\IbrahimTayara\content-ci-cd-template\Tests\id_set.json: [ID103] - Unable to find id_set.json file in path - rerun the command with --create-id-set flag
+
+[2023-04-04T09:07:52Z] - [MainThread] - [INFO] - validate_manager.py:313 - Running in a private repository
+[2023-04-04T09:07:52Z] - [MainThread] - [INFO] - validate_manager.py:2313 - 
+================= Running validation on branch TestBranch =================
+[2023-04-04T09:07:52Z] - [MainThread] - [INFO] - validate_manager.py:2317 - Validating against origin/master
+[2023-04-04T09:07:52Z] - [MainThread] - [INFO] - validate_manager.py:2326 - Running only on committed files
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'cat-file', '--batch-check'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=<valid stream>)
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:52Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', '--cached', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff-tree', '1a6ce4a4899281422d61272a98792a2a9fe0a20c', 'TestBranch', '-r', '--abbrev=40', '--full-index', '-M', '--raw', '-z', '--no-color'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'diff', '--name-only', 'origin/master...TestBranch'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:1931 - 
+================= Running validation on modified files =================
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:1956 - 
+================= Running validation on newly added files =================
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:2071 - 
+================= Running validation on changed pack unique files =================
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:2032 - 
+================= Checking for prohibited deleted files =================
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:1296 - *** after adding validate_deleted_files
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:1298 - *** Before ifs, old_format_files=set(), self.skip_pack_rn_validation=False
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:1309 - *** adding validate_no_duplicated_release_notes
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:2140 - 
+================= Verifying no duplicated release notes =================
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:2160 - 
+No duplicated release notes found.
+
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:1313 - *** after adding validate_no_duplicated_release_notes
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:2177 - 
+================= Checking for missing release notes =================
+
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:2244 - No missing release notes found.
+
+[2023-04-04T09:07:53Z] - [MainThread] - [INFO] - validate_manager.py:358 - 
+The files are valid
+[2023-04-04T09:08:23Z] - [MainThread] - [INFO] - __main__.py:199 - Demisto-SDK will soon stop supporting Python 3.8. Please update your python environment.
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): pypi.org:443
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://pypi.org:443 "GET /pypi/demisto-sdk/json HTTP/1.1" 200 32231
+[2023-04-04T09:08:23Z] - [MainThread] - [INFO] - __main__.py:216 - You are using demisto-sdk 1.12.0.
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - lint_manager.py:199 - Content path C:\Users\IbrahimTayara\content-ci-cd-template
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - lint_manager.py:215 - Test requirements successfully collected for python 3:
+ ['astroid==2.11.5', 'attrs==21.4.0', 'certifi==2022.5.18', 'charset-normalizer==2.0.12', 'coverage==6.3.3', 'dill==0.3.4', 'execnet==1.9.0', 'flake8==4.0.1', 'freezegun==1.2.1', 'hypothesis==6.46.7', 'idna==3.3', 'iniconfig==1.1.1', 'isort==5.10.1', 'lazy-object-proxy==1.7.1', 'mccabe==0.6.1', 'multidict==6.0.2', 'packaging==21.3', 'platformdirs==2.5.2', 'pluggy==1.0.0', 'py==1.11.0', 'pycodestyle==2.8.0', 'pyflakes==2.4.0', 'pylint==2.13.9', 'pyparsing==3.0.9', 'pytest==7.1.2', 'pytest-asyncio==0.18.3', 'pytest-cov==3.0.0', 'pytest-datadir-ng==1.1.1', 'pytest-forked==1.4.0', 'pytest-json==0.4.0', 'pytest-mock==3.7.0', 'pytest-xdist==2.5.0', 'python-dateutil==2.8.2', 'pyyaml==6.0', 'requests==2.27.1', 'requests-mock==1.9.3', 'setuptools==62.3.2', 'six==1.16.0', 'sortedcontainers==2.4.0', 'toml==0.10.2', 'tomli==2.0.1', 'urllib3==1.26.9', 'vcrpy==4.1.1', 'vulture==2.4', 'wrapt==1.14.1', 'yarl==1.7.2']
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\demistomock.py
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\dev_envs\pytest\conftest.py
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\CommonServerPython.py
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - helpers.py:161 - Changed file C:\Users\IbrahimTayara\content-ci-cd-template\CommonServerPython.py without demisto import
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\demistomock.ps1
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\CommonServerPowerShell.ps1
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - lint_manager.py:231 - Test mandatory modules successfully collected
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - lint_manager.py:260 - creating docker client from env
+[2023-04-04T09:08:23Z] - [MainThread] - [INFO] - docker_helper.py:48 - LintManager - init and login the docker client
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - docker_helper.py:54 - LintManager - Using docker mounting: True
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:08:23Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:08:23Z] - [MainThread] - [ERROR] - docker_helper.py:59 - LintManager - Failed to init docker client. Please check that your docker daemon is running.
+[2023-04-04T09:10:36Z] - [MainThread] - [INFO] - __main__.py:199 - Demisto-SDK will soon stop supporting Python 3.8. Please update your python environment.
+[2023-04-04T09:10:36Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:10:36Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): pypi.org:443
+[2023-04-04T09:10:36Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://pypi.org:443 "GET /pypi/demisto-sdk/json HTTP/1.1" 200 32231
+[2023-04-04T09:10:36Z] - [MainThread] - [INFO] - __main__.py:216 - You are using demisto-sdk 1.12.0.
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - lint_manager.py:199 - Content path C:\Users\IbrahimTayara\content-ci-cd-template
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - lint_manager.py:215 - Test requirements successfully collected for python 3:
+ ['astroid==2.11.5', 'attrs==21.4.0', 'certifi==2022.5.18', 'charset-normalizer==2.0.12', 'coverage==6.3.3', 'dill==0.3.4', 'execnet==1.9.0', 'flake8==4.0.1', 'freezegun==1.2.1', 'hypothesis==6.46.7', 'idna==3.3', 'iniconfig==1.1.1', 'isort==5.10.1', 'lazy-object-proxy==1.7.1', 'mccabe==0.6.1', 'multidict==6.0.2', 'packaging==21.3', 'platformdirs==2.5.2', 'pluggy==1.0.0', 'py==1.11.0', 'pycodestyle==2.8.0', 'pyflakes==2.4.0', 'pylint==2.13.9', 'pyparsing==3.0.9', 'pytest==7.1.2', 'pytest-asyncio==0.18.3', 'pytest-cov==3.0.0', 'pytest-datadir-ng==1.1.1', 'pytest-forked==1.4.0', 'pytest-json==0.4.0', 'pytest-mock==3.7.0', 'pytest-xdist==2.5.0', 'python-dateutil==2.8.2', 'pyyaml==6.0', 'requests==2.27.1', 'requests-mock==1.9.3', 'setuptools==62.3.2', 'six==1.16.0', 'sortedcontainers==2.4.0', 'toml==0.10.2', 'tomli==2.0.1', 'urllib3==1.26.9', 'vcrpy==4.1.1', 'vulture==2.4', 'wrapt==1.14.1', 'yarl==1.7.2']
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\demistomock.py
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\dev_envs\pytest\conftest.py
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\CommonServerPython.py
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - helpers.py:161 - Changed file C:\Users\IbrahimTayara\content-ci-cd-template\CommonServerPython.py without demisto import
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\demistomock.ps1
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\CommonServerPowerShell.ps1
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - lint_manager.py:231 - Test mandatory modules successfully collected
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - lint_manager.py:260 - creating docker client from env
+[2023-04-04T09:10:37Z] - [MainThread] - [INFO] - docker_helper.py:48 - LintManager - init and login the docker client
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - docker_helper.py:54 - LintManager - Using docker mounting: True
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:10:37Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:10:37Z] - [MainThread] - [ERROR] - docker_helper.py:59 - LintManager - Failed to init docker client. Please check that your docker daemon is running.
+[2023-04-04T09:15:35Z] - [MainThread] - [INFO] - __main__.py:199 - Demisto-SDK will soon stop supporting Python 3.8. Please update your python environment.
+[2023-04-04T09:15:35Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:15:35Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): pypi.org:443
+[2023-04-04T09:15:35Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://pypi.org:443 "GET /pypi/demisto-sdk/json HTTP/1.1" 200 32231
+[2023-04-04T09:15:35Z] - [MainThread] - [INFO] - __main__.py:216 - You are using demisto-sdk 1.12.0.
+[2023-04-04T09:15:35Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - lint_manager.py:199 - Content path C:\Users\IbrahimTayara\content-ci-cd-template
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - lint_manager.py:215 - Test requirements successfully collected for python 3:
+ ['astroid==2.11.5', 'attrs==21.4.0', 'certifi==2022.5.18', 'charset-normalizer==2.0.12', 'coverage==6.3.3', 'dill==0.3.4', 'execnet==1.9.0', 'flake8==4.0.1', 'freezegun==1.2.1', 'hypothesis==6.46.7', 'idna==3.3', 'iniconfig==1.1.1', 'isort==5.10.1', 'lazy-object-proxy==1.7.1', 'mccabe==0.6.1', 'multidict==6.0.2', 'packaging==21.3', 'platformdirs==2.5.2', 'pluggy==1.0.0', 'py==1.11.0', 'pycodestyle==2.8.0', 'pyflakes==2.4.0', 'pylint==2.13.9', 'pyparsing==3.0.9', 'pytest==7.1.2', 'pytest-asyncio==0.18.3', 'pytest-cov==3.0.0', 'pytest-datadir-ng==1.1.1', 'pytest-forked==1.4.0', 'pytest-json==0.4.0', 'pytest-mock==3.7.0', 'pytest-xdist==2.5.0', 'python-dateutil==2.8.2', 'pyyaml==6.0', 'requests==2.27.1', 'requests-mock==1.9.3', 'setuptools==62.3.2', 'six==1.16.0', 'sortedcontainers==2.4.0', 'toml==0.10.2', 'tomli==2.0.1', 'urllib3==1.26.9', 'vcrpy==4.1.1', 'vulture==2.4', 'wrapt==1.14.1', 'yarl==1.7.2']
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\demistomock.py
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\dev_envs\pytest\conftest.py
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\CommonServerPython.py
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - helpers.py:161 - Changed file C:\Users\IbrahimTayara\content-ci-cd-template\CommonServerPython.py without demisto import
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\demistomock.ps1
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - helpers.py:152 - read file C:\Users\IbrahimTayara\content-ci-cd-template\CommonServerPowerShell.ps1
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - lint_manager.py:231 - Test mandatory modules successfully collected
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - lint_manager.py:260 - creating docker client from env
+[2023-04-04T09:15:36Z] - [MainThread] - [INFO] - docker_helper.py:48 - LintManager - init and login the docker client
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - docker_helper.py:54 - LintManager - Using docker mounting: True
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
+[2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
+[2023-04-04T09:15:36Z] - [MainThread] - [ERROR] - docker_helper.py:59 - LintManager - Failed to init docker client. Please check that your docker daemon is running.

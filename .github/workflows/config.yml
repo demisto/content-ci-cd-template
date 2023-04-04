@@ -47,12 +47,12 @@ jobs:
           if [ ! -e "venv" ]; then
             echo "installing venv"
             NO_HOOKS=1 SETUP_PY2=no .hooks/bootstrap
-            source ./venv/bin/activate
+            source venv/bin/activate
             pip3 install -r ${GITHUB_WORKSPACE}/repository/requirements.txt
             demisto-sdk --version
           else
             echo "venv exists (from cache). activating"
-            source ./venv/bin/activate
+            source venv/bin/activate
           fi
 
           # Install node packages

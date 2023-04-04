@@ -9,5 +9,4 @@ no_xsoar_linter=true
 no_pylint=true
 no_test=true
 no_pwsh_analyze=true
-[validate]
-no-docker-checks=true
+

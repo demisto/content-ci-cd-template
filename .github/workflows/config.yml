@@ -41,6 +41,7 @@ jobs:
 
       - name: Prepare Venv
         run: |
+          brew install poetry
           cd $GITHUB_WORKSPACE/content/
 
           if [ ! -e "venv" ]; then

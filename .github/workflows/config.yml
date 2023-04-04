@@ -69,7 +69,7 @@ jobs:
           if [ $PACKS_CHANGED ]; then
             cd $GITHUB_WORKSPACE/repository/
             source $GITHUB_WORKSPACE/content/venv/bin/activate
-
+            mkdir $GITHUB_WORKSPACE/content/artifacts
             # Download content's
             gsutil cp gs://marketplace-dist/content/id_set.json ./Tests/content-id_set.json
 

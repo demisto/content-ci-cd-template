@@ -45,7 +45,7 @@ jobs:
           cd $GITHUB_WORKSPACE/content/
           curl -sSL https://install.python-poetry.org | python3 -
           virtualenv --python=python3 venv
-          ls -lar $GITHUB_WORKSPACE/content/venv
+        
 
           if [ ! -e "venv" ]; then
             echo "installing venv"
@@ -77,7 +77,9 @@ jobs:
             demisto-sdk create-id-set
 
             # Merge id-sets and copy to artifacts folder
+            ls -lar ./Tests
             demisto-sdk merge-id-sets -i1 ./Tests/id_set.json -i2 ./Tests/content-id_set.json -o ./Tests/id_set.json
+            ls -lar ./Tests
             cp "./Tests/id_set.json" "$ARTIFACTS_FOLDER/id_set.json"
           else
             echo "No packs has changed, skipping step."
@@ -91,7 +93,7 @@ jobs:
 
           # Run validate on all changed files
           # You can choose what validations to use in the .demisto-sdk-conf file
-          demisto-sdk validate --quite-bc-validation --no-conf-json --allow-skipped
+          demisto-sdk validate -g
       - name: Run Unit Testing and Lint
         if: always()
         run: |

@@ -216,3 +216,8 @@ The files are valid
 [2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - config.py:21 - Trying paths: ['C:\\Users\\IbrahimTayara\\.docker\\config.json', 'C:\\Users\\IbrahimTayara\\.dockercfg']
 [2023-04-04T09:15:36Z] - [MainThread] - [DEBUG] - config.py:28 - No config file found
 [2023-04-04T09:15:36Z] - [MainThread] - [ERROR] - docker_helper.py:59 - LintManager - Failed to init docker client. Please check that your docker daemon is running.
+[2023-04-04T11:06:58Z] - [MainThread] - [INFO] - __main__.py:199 - Demisto-SDK will soon stop supporting Python 3.8. Please update your python environment.
+[2023-04-04T11:06:58Z] - [MainThread] - [DEBUG] - cmd.py:976 - Popen(['git', 'remote', 'get-url', '--all', 'origin'], cwd=C:\Users\IbrahimTayara\content-ci-cd-template, universal_newlines=False, shell=None, istream=None)
+[2023-04-04T11:06:58Z] - [MainThread] - [DEBUG] - connectionpool.py:1003 - Starting new HTTPS connection (1): pypi.org:443
+[2023-04-04T11:06:58Z] - [MainThread] - [DEBUG] - connectionpool.py:456 - https://pypi.org:443 "GET /pypi/demisto-sdk/json HTTP/1.1" 200 32231
+[2023-04-04T11:06:58Z] - [MainThread] - [INFO] - __main__.py:216 - You are using demisto-sdk 1.12.0.

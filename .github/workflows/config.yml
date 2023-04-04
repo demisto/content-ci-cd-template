@@ -43,9 +43,9 @@ jobs:
         run: |
           
           cd $GITHUB_WORKSPACE/content/
-          ls -lar $GITHUB_WORKSPACE/content/
           curl -sSL https://install.python-poetry.org | python3 -
-          source $(poetry env info --path)/bin/activate
+          virtualenv --python=python3
+          ls -lar $GITHUB_WORKSPACE/content/
 
           if [ ! -e "venv" ]; then
             echo "installing venv"

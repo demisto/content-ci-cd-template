@@ -79,7 +79,7 @@ jobs:
             # Merge id-sets and copy to artifacts folder
             ls -lar ./Tests
             demisto-sdk merge-id-sets -i1 ./Tests/id_set.json -i2 ./Tests/content-id_set.json -o ./Tests/id_set.json
-            ls -lar ./Tests
+            ls -lar $ARTIFACTS_FOLDER
             cp "./Tests/id_set.json" "$ARTIFACTS_FOLDER/id_set.json"
           else
             echo "No packs has changed, skipping step."

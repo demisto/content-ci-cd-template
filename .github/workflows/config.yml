@@ -44,8 +44,8 @@ jobs:
           
           cd $GITHUB_WORKSPACE/content/
           curl -sSL https://install.python-poetry.org | python3 -
-          virtualenv --python=python3 .
-          ls -lar $GITHUB_WORKSPACE/content/
+          virtualenv --python=python3 venv
+          ls -lar $GITHUB_WORKSPACE/content/venv
 
           if [ ! -e "venv" ]; then
             echo "installing venv"

@@ -22,7 +22,6 @@ jobs:
           python-version: 3.9.16
       - name: Install pip and requirements
         run: |
-          ls -lar /home/runner/work/
           pip install --upgrade pip
           pip install -r ${GITHUB_WORKSPACE}/repository/requirements.txt
       - name: Prepare Environment
@@ -32,8 +31,8 @@ jobs:
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
           echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
           
-          echo "ARTIFACTS_FOLDER=/home/runner/work/repository/repository/content/artifacts" >> $GITHUB_ENV
-          echo "NEW_PACKS_FOLDER=/home/runner/work/repository/repository/content/new_packs_zips" >> $GITHUB_ENV
+          echo "ARTIFACTS_FOLDER=$GITHUB_WORKSPACE/content/artifacts" >> $GITHUB_ENV
+          echo "NEW_PACKS_FOLDER=$GITHUB_WORKSPACE/content/new_packs_zips" >> $GITHUB_ENV
           echo "DEMISTO_README_VALIDATION=false" >> $GITHUB_ENV
 
           BRANCH_NAME=${REF#refs/heads/}

@@ -1,6 +1,6 @@
 category: Analytics & SIEM
 commonfields:
-  id: myIntegration
+  id: TestIbrahim
   version: -1
 configuration:
 - defaultvalue: https://example.com/

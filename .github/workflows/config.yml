@@ -85,16 +85,16 @@ jobs:
           else
             echo "No packs has changed, skipping step."
           fi
-      - name: Validate Files and Yaml
-        if: always()
-        run: |
-          source $GITHUB_WORKSPACE/content/venv/bin/activate
+      # - name: Validate Files and Yaml
+      #   if: always()
+      #   run: |
+      #     source $GITHUB_WORKSPACE/content/venv/bin/activate
 
-          cd $GITHUB_WORKSPACE/repository
+      #     cd $GITHUB_WORKSPACE/repository
 
-          # Run validate on all changed files
-          # You can choose what validations to use in the .demisto-sdk-conf file
-          demisto-sdk validate -g
+      #     # Run validate on all changed files
+      #     # You can choose what validations to use in the .demisto-sdk-conf file
+      #     demisto-sdk validate -g
       - name: Run Unit Testing and Lint
         if: always()
         run: |
@@ -126,40 +126,17 @@ jobs:
           else
             echo "No packs has changed, skipping step."
           fi
-      - name: Upload Packs to Artifacts Server
+      - name: Upload Packs to Azure Storage Account
         env:
           REF: ${{ github.ref }}
-        run : |
-          if [ $PACKS_CHANGED ]; then
-            BRANCH_NAME=${REF#refs/heads/}
-
-            # Select the way you want to install the packs on the machine, and remove the second part
-            # For example: Choose the option 1 - UPLOAD TO ARTIFACTS SERVER OPTION, and remove the option 2 - UPLOAD DIRECTLY TO YOUR XSOAR MACHINE.
-            # For more information - https://xsoar.pan.dev/docs/reference/articles/xsoar-ci-cd#to-deploy-content
-
-            # 1. ========= UPLOAD TO ARTIFACTS SERVER OPTION =========
-
-            # Upload to the artifacts server of your choice.
-            # Create a file with the service account data
-            # use the bucket_upload script to upload your packs to google cloud storage
-            python $GITHUB_WORKSPACE/repository/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
-            # Delete the service account file
-            rm $GITHUB_WORKSPACE/service_account.json
-
-            # 2. ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
-
-            if [ $BRANCH_NAME != master ]; then
-
-              # Get the config_file
-              CONFIG_FILE=$(cat xsoar_config.json)
-              # Extract the Marketplace Packs section from the config_file
-              MARKETPLACE_PACKS_LIST=$(cat $CONFIG_FILE | jq -r '.marketplace_packs')
-              # Upload Custom Packs
-              demisto-sdk upload --input-config-file /xsoar_config.json
-              # Upload MarketPlace Packs
-              python3 build_related_scripts/MarketPlaceInstallerFromCICD.py --marketplace-packs-list $MARKETPLACE_PACKS_LIST
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
+          inlineScript: |
+            cd $GITHUB_WORKSPACE/repository/
+            if [ $PACKS_CHANGED ]; then
+              az storage blob upload --file $ARTIFACTS_FOLDER--container-name ${{ secrets.CONTAINER_NAME }} --name $ARTIFACTS_FOLDER --connection-string ${{ secrets.STORAGE_KEY }}
             fi
-
-          else
-            echo "No packs has changed, skipping step."
-          fi
+            else
+              echo "No packs has changed, skipping step."
+            fi

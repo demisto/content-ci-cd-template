@@ -41,8 +41,10 @@ jobs:
 
       - name: Prepare Venv
         run: |
-          curl -sSL https://install.python-poetry.org | python3 -
+          
           cd $GITHUB_WORKSPACE/content/
+          curl -sSL https://install.python-poetry.org | python3 -
+          python3 -m venv .
 
           if [ ! -e "venv" ]; then
             echo "installing venv"

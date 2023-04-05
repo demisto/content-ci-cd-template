@@ -1,8 +1,7 @@
 name: XSOAR CI/CD
 on:
   push:
-    tags:
-      - 'v*.*.*'
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -140,11 +139,11 @@ jobs:
           azcliversion: 2.30.0
           inlineScript: |
             if [ $PACKS_CHANGED ]; then
-              
+              cd $GITHUB_WORKSPACE/repository/
               echo $ARTIFACTS_FOLDER
               for file in $ARTIFACTS_FOLDER/uploadable_packs/*
               do
-                az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_KEY }} --container-name ${{ secrets.CONTAINER_NAME }} --file $file  --name "builds/${{ steps.extract_branch.outputs.branch }}/packs/$(basename -- $file .zip)/${{ env.RELEASE_VERSION }}/$(basename -- $file)"
+                az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_KEY }} --container-name ${{ secrets.CONTAINER_NAME }} --file $file  --name "builds/${{ steps.extract_branch.outputs.branch }}/packs/$(basename -- $file .zip)/$(cat CurrentVersion.txt)/$(basename -- $file)"
               done
             else
               echo "No packs has changed, skipping step."

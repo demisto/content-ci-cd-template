@@ -129,17 +129,17 @@ jobs:
       - name: Upload Packs to Azure Storage Account
         env:
           REF: ${{ github.ref }}
-          AZURE_STORAGE_KEY: ${{ secrets.STORAGE_KEY }}
         uses: azure/CLI@v1
         with:
           azcliversion: 2.30.0
           inlineScript: |
             if [ $PACKS_CHANGED ]; then
               
-              cd $ARTIFACTS_FOLDER/uploadable_packs/
-              for file in ./*
+              echo $ARTIFACTS_FOLDER
+              for file in $ARTIFACTS_FOLDER/uploadable_packs/*
               do
-                az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key $AZURE_STORAGE_KEY --container-name ${{ secrets.CONTAINER_NAME }} --file $file  --name $file
+                filename = "$(basename -- $file)"
+                az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_KEY }} --container-name ${{ secrets.CONTAINER_NAME }} --file $file  --name $filename
               done
             else
               echo "No packs has changed, skipping step."

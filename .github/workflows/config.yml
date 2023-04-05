@@ -138,8 +138,8 @@ jobs:
               echo $ARTIFACTS_FOLDER
               for file in $ARTIFACTS_FOLDER/uploadable_packs/*
               do
-                filename = "$(basename -- $file)"
-                az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_KEY }} --container-name ${{ secrets.CONTAINER_NAME }} --file $file  --name $filename
+                FILE_NAME = "$(basename -- $file)"
+                az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_KEY }} --container-name ${{ secrets.CONTAINER_NAME }} --file $file  --name $FILE_NAME
               done
             else
               echo "No packs has changed, skipping step."

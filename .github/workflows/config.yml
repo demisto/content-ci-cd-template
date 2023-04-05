@@ -133,10 +133,12 @@ jobs:
         with:
           azcliversion: 2.30.0
           inlineScript: |
-            cd $GITHUB_WORKSPACE/repository/
             if [ $PACKS_CHANGED ]; then
               echo $ARTIFACTS_FOLDER
-              az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_KEY }} --container-name ${{ secrets.CONTAINER_NAME }} --file *.zip  --name $ARTIFACTS_FOLDER 
+              for file in $ARTIFACTS_FOLDER/uploadable_packs/*
+              do
+                az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_KEY }} --container-name ${{ secrets.CONTAINER_NAME }} --file $file  --name $file
+              done
             fi
             else
               echo "No packs has changed, skipping step."

@@ -135,7 +135,7 @@ jobs:
           inlineScript: |
             cd $GITHUB_WORKSPACE/repository/
             if [ $PACKS_CHANGED ]; then
-              az storage blob upload --file $ARTIFACTS_FOLDER --container-name ${{ secrets.CONTAINER_NAME }} --name $ARTIFACTS_FOLDER --connection-string ${{ secrets.STORAGE_KEY }}
+              az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_KEY }} --container-name ${{ secrets.CONTAINER_NAME }} --file $ARTIFACTS_FOLDER  --name $ARTIFACTS_FOLDER 
             fi
             else
               echo "No packs has changed, skipping step."

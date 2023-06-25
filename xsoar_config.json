@@ -34,7 +34,7 @@
     "lists": [
         {
             "name": "My Partners IPs",
-            "value": ["127.0.0.1, 127.0.0.2"]
+            "value": ["127.0.0.1", "127.0.0.2"]
         },
         {
             "name": "C level Executives",

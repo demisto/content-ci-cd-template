@@ -38,7 +38,7 @@
         },
         {
             "name": "C level Executives",
-            "value": "foo@dummy.com, bar@dummy.com, koko@dummy.com"
+            "value": ["foo@dummy.com", "bar@dummy.com", "koko@dummy.com"]
         }
     ],
     "jobs": [

@@ -42,7 +42,7 @@ def get_changed_files(repo_path: Path, prev_ver: str) -> List[str]:
         List[str]. All the files that have changed.
     """
     repo = Repo(repo_path, search_parent_directories=True)
-    git_util = GitUtil(repo)
+    git_util = GitUtil(repo_path)
 
     if str(repo.active_branch) == prev_ver:
         # Get the latest commit in master, prior the merge.

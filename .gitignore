@@ -1,0 +1,8 @@
+.DS_Store
+*.pyc
+
+# Environment
+.env
+
+# neo4j
+neo4j-data

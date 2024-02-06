@@ -1,8 +1,6 @@
-.DS_Store
 *.pyc
-
-# Environment
-.env
+.DS_Store
+.vscode
 
 # neo4j
 neo4j-data
@@ -11,3 +9,8 @@ neo4j-data
 demisto_sdk_debug.log
 demisto_sdk_debug.log.*
 *.log
+
+# Environment and reports
+.demisto-sdk-report
+.env
+.venv

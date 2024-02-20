@@ -34,7 +34,7 @@ def basescript_dummy(dummy: str) -> Dict[str, str]:
 def basescript_dummy_command(args: Dict[str, Any]) -> CommandResults:
 
     dummy = args.get('dummy', 'example dummy')
-
+    print('hi')
     if not dummy:
         raise ValueError('dummy not specified')
 

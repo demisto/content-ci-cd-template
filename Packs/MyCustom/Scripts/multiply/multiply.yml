@@ -1,0 +1,29 @@
+args:
+- default: true
+  name: value
+  required: true
+  description: "The number to multiply value by."
+- name: multiply
+  required: true
+  description: "The number to."
+comment: multiply number by number.
+commonfields:
+  id: multiply
+  version: -1
+dockerimage: demisto/python3:3.10.13.87159
+enabled: true
+engineinfo: {}
+name: multiply
+outputs:
+- contextPath: multiply.result
+  type: number
+runas: DBotWeakRole
+runonce: false
+script: ''
+scripttarget: 0
+subtype: python3
+tags: []
+type: python
+fromversion: 6.10.0
+tests:
+- No tests (auto formatted)

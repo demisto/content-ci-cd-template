@@ -1,4 +1,4 @@
-this is a test description.
+
 
 ## Dependencies
 
@@ -33,5 +33,3 @@ There are no outputs for this playbook.
 ## Playbook Image
 
 ---
-
-![demo](../doc_files/demo.png)

@@ -1,28 +1,5 @@
 {
-    "scripts": [
-        {
-            "demoprint": {
-                "name": "demoprint",
-                "display_name": "demoprint",
-                "file_path": "Packs/gozdetestpack/Scripts/demoprint/demoprint.yml",
-                "source": [
-                    "github.com",
-                    "yildizgozde",
-                    "content-ci-cd-template"
-                ],
-                "pack": "gozdetestpack",
-                "marketplaces": [
-                    "xsoar",
-                    "marketplacev2"
-                ],
-                "type": "python3",
-                "script_executions": [
-                    "URLDecode"
-                ],
-                "docker_image": "demisto/python3:3.9.7.24076"
-            }
-        }
-    ],
+    "scripts": [],
     "playbooks": [],
     "integrations": [],
     "TestPlaybooks": [],
@@ -42,31 +19,7 @@
     "XSIAMReports": [],
     "Triggers": [],
     "Wizards": [],
-    "Packs": {
-        "gozdetestpack": {
-            "name": "## FILL MANDATORY FIELD ##",
-            "current_version": "1.0.0",
-            "source": [
-                "github.com",
-                "yildizgozde",
-                "content-ci-cd-template"
-            ],
-            "author": "Cortex XSOAR",
-            "certification": "certified",
-            "tags": [],
-            "use_cases": [],
-            "categories": [],
-            "marketplaces": [
-                "xsoar",
-                "marketplacev2"
-            ],
-            "ContentItems": {
-                "scripts": [
-                    "demoprint"
-                ]
-            }
-        }
-    },
+    "Packs": [],
     "XDRCTemplates": [],
     "LayoutRules": [],
     "GenericTypes": [],

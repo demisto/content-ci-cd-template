@@ -1,0 +1,18 @@
+commonfields:
+  id: 'demoprint'
+  version: -1
+dockerimage: demisto/python3:3.10.13.89009
+enabled: true
+engineinfo: {}
+name: demoprint
+runas: DBotWeakRole
+runonce: false
+script: ''
+scripttarget: 0
+subtype: python3
+tags: []
+type: python
+comment: "demo comment"
+fromversion: 6.10.0
+tests:
+- No tests (auto formatted)

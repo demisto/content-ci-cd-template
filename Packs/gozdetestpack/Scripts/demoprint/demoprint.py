@@ -1,3 +1,3 @@
 import demistomock as demisto  # noqa: F401
 from CommonServerPython import *  # noqa: F401
-return_results(CommandResults(readable_output="hello there"))
+return_results(CommandResults(readable_output="hello there2"))

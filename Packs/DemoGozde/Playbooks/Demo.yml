@@ -1,0 +1,83 @@
+id: 'Demo'
+inputs: []
+name: Demo
+outputs: []
+quiet: true
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 7c558288-21ca-4f2e-86de-1161e7d3bcfa
+      iscommand: false
+      name: ""
+      version: -1
+      description: ''
+    taskid: 7c558288-21ca-4f2e-86de-1161e7d3bcfa
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 440,
+          "y": 90
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      description: description
+      brand: ""
+      id: 1cd44a0f-c62e-4dad-8af5-29e93e0ae40c
+      iscommand: false
+      name: demoprint
+      script: demoprint
+      type: regular
+      version: -1
+    taskid: 1cd44a0f-c62e-4dad-8af5-29e93e0ae40c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 440,
+          "y": 250
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 255,
+        "width": 380,
+        "x": 440,
+        "y": 90
+      }
+    }
+  }
+tests:
+- No tests (auto formatted)
+fromversion: 6.10.0
+description: nice description.

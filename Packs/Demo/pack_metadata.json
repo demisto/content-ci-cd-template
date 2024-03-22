@@ -1,0 +1,29 @@
+{
+    "name": "Demo",
+    "description": "demo pack",
+    "support": "developer",
+    "currentVersion": "1.0.0",
+    "author": "",
+    "url": "",
+    "email": "yildizgozdee@gmail.com",
+    "categories": [
+        "Utilities"
+    ],
+    "tags": [],
+    "useCases": [],
+    "keywords": [],
+    "marketplaces": [
+        "xsoar",
+        "marketplacev2"
+    ],
+    "githubUser": [],
+    "dependencies": {
+        "FiltersAndTransformers": {
+            "mandatory": true,
+            "display_name": "FiltersAndTransformers"
+        }
+    },
+    "displayedImages": [
+        "FiltersAndTransformers"
+    ]
+}

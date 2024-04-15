@@ -1,0 +1,19 @@
+{
+    "name": "TestPack",
+    "description": "",
+    "support": "community",
+    "currentVersion": "1.0.0",
+    "author": "Custom",
+    "url": "https://www.paloaltonetworks.com/cortex",
+    "email": "",
+    "created": "2024-04-13T00:00:00Z",
+    "certification": "",
+    "categories": [
+        "Utilities"
+    ],
+    "tags": [],
+    "useCases": [],
+    "keywords": [],
+    "dependencies": {},
+    "marketplaces": []
+}

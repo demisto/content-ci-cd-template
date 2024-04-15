@@ -1,0 +1,17 @@
+commonfields:
+  id: 0572c759-a041-4a76-8b7a-23b82a944cac
+  version: 3
+vcShouldKeepItemLegacyProdMachine: false
+name: Testautomation
+script: return_results("hello world")
+type: python
+tags: []
+enabled: true
+scripttarget: 0
+subtype: python3
+pswd: ""
+runonce: false
+dockerimage: demisto/python3:3.10.14.92207
+runas: DBotWeakRole
+engineinfo: {}
+mainengineinfo: {}

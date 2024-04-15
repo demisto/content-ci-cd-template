@@ -48,8 +48,10 @@ def init_bucket(bucket_name: str, service_account: str) -> Optional[storage.Buck
         Bucket. Initialized xsoar-content-gold bucket object.
     """
     try:
-        storage_client = storage.Client.from_service_account_json(service_account)
+        service_account_json = json.loads(service_account)
+        storage_client = storage.Client.from_service_account_info(service_account_json)
         bucket = storage_client.bucket(bucket_name)
+        # print(type(bucket))
     except Exception as e:
         print(f'An error occurred while initiating bucket.\n{e}')
         return
@@ -92,6 +94,7 @@ def upload_packs(bucket: storage.Bucket, packs_directory: Path, branch_name: str
 
     os.chdir(packs_directory)
     for pack_zip_name in os.listdir():
+        print(pack_zip_name)
         if not pack_zip_name.endswith('.zip'):
             continue
 

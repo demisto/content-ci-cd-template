@@ -71,7 +71,7 @@ jobs:
           cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPython/CommonServerPython.py ./
           cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPowerShell/CommonServerPowerShell.ps1 ./
           mkdir -p ./dev_envs/pytest/
-          cp $GITHUB_WORKSPACE/content/Tests/scripts/dev_envs/pytest/conftest.py ./dev_envs/pytest/
+          cp $GITHUB_WORKSPACE/content/Tests/scripts/pytest/conftest.py ./dev_envs/pytest/
 
           # Run lint on all changed files
           # You can choose what lint checks to use in the .demisto-sdk-conf file

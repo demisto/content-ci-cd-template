@@ -1,0 +1,25 @@
+{
+    "name": "PrintName",
+    "description": "This is a test pack",
+    "support": "community",
+    "currentVersion": "1.0.0",
+    "author": "Gozde",
+    "url": "https://live.paloaltonetworks.com/t5/cortex-xsoar-discussions/bd-p/Cortex_XSOAR_Discussions",
+    "email": "",
+    "categories": [
+        "Utilities"
+    ],
+    "tags": [],
+    "useCases": [],
+    "keywords": [],
+    "marketplaces": [
+        "xsoar",
+        "marketplacev2"
+    ],
+    "devEmail": [
+        "yildizgozdee@gmail.com"
+    ],
+    "githubUser": [],
+    "dependencies": {},
+    "displayedImages": []
+}

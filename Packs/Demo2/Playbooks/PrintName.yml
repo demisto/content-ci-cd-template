@@ -1,6 +1,6 @@
-id: 'DemoPB'
+id: 'PrintName'
 inputs: []
-name: DemoPB
+name: PrintName
 outputs: []
 quiet: true
 starttaskid: "0"
@@ -20,12 +20,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 32e0e127-2f09-46ae-894e-87e9ebe0af72
+      id: 020de27e-9d0d-493e-8576-00ae199bfc5d
       iscommand: false
       name: ""
       version: -1
       description: ''
-    taskid: 32e0e127-2f09-46ae-894e-87e9ebe0af72
+    taskid: 020de27e-9d0d-493e-8576-00ae199bfc5d
     timertriggers: []
     type: start
     view: |-
@@ -43,25 +43,28 @@ tasks:
     isoversize: false
     note: false
     quietmode: 0
+    scriptarguments:
+      value:
+        simple: My name is Gozde
     separatecontext: false
     skipunavailable: false
     task:
-      description: "task description"
       brand: ""
-      id: 7ecff0cf-1ddd-497e-8b07-20a39b29d128
+      description: Prints text to war room (Markdown supported)
+      id: a0788137-2fb2-45bc-82da-e8b71c501a18
       iscommand: false
-      name: DemoPrint
-      script: 'DemoPrint'
+      name: Name Added BY CI/CD
+      script: Print
       type: regular
       version: -1
-    taskid: 7ecff0cf-1ddd-497e-8b07-20a39b29d128
+    taskid: a0788137-2fb2-45bc-82da-e8b71c501a18
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 450,
-          "y": 170
+          "y": 230
         }
       }
 version: -1
@@ -70,7 +73,7 @@ view: |-
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 215,
+        "height": 275,
         "width": 380,
         "x": 450,
         "y": 50
@@ -80,4 +83,4 @@ view: |-
 tests:
 - No tests (auto formatted)
 fromversion: 6.10.0
-description: demo playbook.
+description: This is a nicest description that I have ever seen.

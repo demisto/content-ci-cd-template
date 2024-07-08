@@ -1,4 +1,4 @@
-demo playbook
+This playbook prints a name.
 
 ## Dependencies
 
@@ -14,7 +14,7 @@ This playbook does not use any integrations.
 
 ### Scripts
 
-* DemoPrint
+* Print
 
 ### Commands
 
@@ -33,3 +33,5 @@ There are no outputs for this playbook.
 ## Playbook Image
 
 ---
+
+![Print Name](../doc_files/Print_Name.png)

@@ -1,0 +1,82 @@
+id: 'DemoPlaybook'
+inputs: []
+name: DemoPlaybook
+outputs: []
+quiet: true
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1944a0d9-1d9f-4634-8c00-a14775114fd2
+      iscommand: false
+      name: ""
+      version: -1
+      description: ''
+    taskid: 1944a0d9-1d9f-4634-8c00-a14775114fd2
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: b9a68485-ced4-48df-8240-c19f907655e0
+      iscommand: false
+      name: Demo Print
+      script: 'DemoPrintNew'
+      type: regular
+      version: -1
+    taskid: b9a68485-ced4-48df-8240-c19f907655e0
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 230
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 275,
+        "width": 380,
+        "x": 450,
+        "y": 50
+      }
+    }
+  }
+tests:
+- No tests (auto formatted)
+fromversion: 6.10.0
+description: This is a demo playbook created by demisto-sdk

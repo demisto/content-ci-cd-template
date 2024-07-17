@@ -108,7 +108,7 @@ jobs:
               # use the bucket_upload script to upload your packs to google cloud storage
               # python $GITHUB_WORKSPACE/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
               # Delete the service account file
-              rm $GITHUB_WORKSPACE/service_account.json
+              # rm $GITHUB_WORKSPACE/service_account.json
 
               # 2. ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
 

@@ -64,7 +64,6 @@ repos:
     description: validate content
     entry: demisto-sdk validate
     args:
-    - --skip-pack-dependencies
     - --config-path=validation_config.toml
     pass_filenames: false
     language: system

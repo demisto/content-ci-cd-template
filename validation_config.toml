@@ -1,0 +1,47 @@
+ignorable_errors = [
+  "BA101",
+  "BA105",
+  "BA106",
+  "BA116",
+  "BA118",
+  "DO104",
+  "IN108",
+  "IN130",
+  "PA107",
+  "PA108",
+  "PA111",
+  "PA115",
+  "PA128",
+  "PA130",
+  "RP101"
+]
+
+[path_based_validations]
+select = [
+  "PB114"
+]
+warning = []
+
+[use_git]
+select = [
+  "BA101",
+  "BA105",
+  "BA106",
+  "BA116",
+  "BA118",
+  "DO104",
+  "IN108",
+  "IN130",
+  "PA107",
+  "PA108",
+  "PA111",
+  "PA115",
+  "PA128",
+  "PA130",
+  "RP101"
+]
+warning = []
+
+[Custom_Categories]
+select = ["DS108"]
+warning = []

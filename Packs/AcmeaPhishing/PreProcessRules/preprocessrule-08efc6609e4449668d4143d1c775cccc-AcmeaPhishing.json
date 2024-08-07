@@ -1,5 +1,7 @@
 {
     "action": "linkAndClose",
+    "cacheVersn": 0,
+    "definitionId": "",
     "enabled": true,
     "existingEventsFilters": [
         [
@@ -21,6 +23,7 @@
             }
         ]
     ],
+    "fromServerVersion": "",
     "id": "08efc6609e4449668d4143d1c775cccc",
     "index": -1,
     "itemVersion": "",
@@ -48,6 +51,7 @@
         ]
     ],
     "packID": "",
+    "packName": "",
     "period": {
         "by": "days",
         "fromValue": 30
@@ -92,6 +96,7 @@
             }
         ]
     ],
+    "scriptID": "",
     "scriptName": "",
     "searchClosed": false,
     "system": false,

@@ -1,0 +1,101 @@
+{
+    "action": "linkAndClose",
+    "enabled": true,
+    "existingEventsFilters": [
+        [
+            {
+                "left": {
+                    "isContext": true,
+                    "value": {
+                        "simple": "accountid"
+                    }
+                },
+                "operator": "isEqualString",
+                "right": {
+                    "isContext": false,
+                    "value": {
+                        "simple": "12345"
+                    }
+                },
+                "type": "shortText"
+            }
+        ]
+    ],
+    "id": "08efc6609e4449668d4143d1c775cccc",
+    "index": -1,
+    "itemVersion": "",
+    "linkTo": "oldest",
+    "locked": false,
+    "name": "AcmeaPhishing",
+    "newEventFilters": [
+        [
+            {
+                "left": {
+                    "isContext": true,
+                    "value": {
+                        "simple": "accountinformationbreached"
+                    }
+                },
+                "operator": "isEqualString",
+                "right": {
+                    "isContext": false,
+                    "value": {
+                        "simple": "12345"
+                    }
+                },
+                "type": "shortText"
+            }
+        ]
+    ],
+    "packID": "",
+    "period": {
+        "by": "days",
+        "fromValue": 30
+    },
+    "readyExistingEventsFilters": [
+        [
+            {
+                "left": {
+                    "isContext": true,
+                    "value": {
+                        "simple": "accountid"
+                    }
+                },
+                "operator": "isEqualString",
+                "right": {
+                    "isContext": false,
+                    "value": {
+                        "simple": "12345"
+                    }
+                },
+                "type": "shortText"
+            }
+        ]
+    ],
+    "readyNewEventFilters": [
+        [
+            {
+                "left": {
+                    "isContext": true,
+                    "value": {
+                        "simple": "accountinformationbreached"
+                    }
+                },
+                "operator": "isEqualString",
+                "right": {
+                    "isContext": false,
+                    "value": {
+                        "simple": "12345"
+                    }
+                },
+                "type": "shortText"
+            }
+        ]
+    ],
+    "scriptName": "",
+    "searchClosed": false,
+    "system": false,
+    "toServerVersion": "",
+    "version": -1,
+    "fromVersion": "6.10.0"
+}

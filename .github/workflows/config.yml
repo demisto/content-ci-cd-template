@@ -17,8 +17,8 @@ jobs:
       - name: Content checkout
         uses: actions/checkout@v2
         with:
-          repository: demisto/content
-          path: content
+          repository: yildizgozde/content-ci-cd-template
+          path: content-ci-cd-template
       - name: Install poetry
         uses: Gr1N/setup-poetry@v8
       - name: Setup Python

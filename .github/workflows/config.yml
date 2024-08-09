@@ -17,8 +17,8 @@ jobs:
       - name: Content checkout
         uses: actions/checkout@v2
         with:
-          repository: yildizgozde/content-ci-cd-template
-          path: content-ci-cd-template
+          repository: demisto/content
+          path: content
       - name: Install poetry
         uses: Gr1N/setup-poetry@v8
       - name: Setup Python
@@ -33,14 +33,14 @@ jobs:
         run: |
           source $GITHUB_WORKSPACE/.venv/bin/activate
           echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
-          echo "PYTHONPATH=${GITHUB_WORKSPACE}/content-ci-cd-template:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
-          echo "NEW_PACKS_FOLDER=${GITHUB_WORKSPACE}/content-ci-cd-template/new_packs_zips" >> $GITHUB_ENV
+          echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
+          echo "NEW_PACKS_FOLDER=${GITHUB_WORKSPACE}/content/new_packs_zips" >> $GITHUB_ENV
 
           PACKS_CHANGED=$(python $GITHUB_WORKSPACE/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/ --prev-ver ${DEFAULT_BRANCH})
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
       - name: Prepare Venv
         run: |
-          cd $GITHUB_WORKSPACE/content-ci-cd-template/
+          cd $GITHUB_WORKSPACE/content/
 
           # Install node packages
           npm install .
@@ -51,7 +51,7 @@ jobs:
       - name: Validate Files and Yaml
         if: always()
         run: |
-          source $GITHUB_WORKSPACE/content-ci-cd-template/.venv/bin/activate
+          source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
           cd $GITHUB_WORKSPACE
 
@@ -61,17 +61,17 @@ jobs:
       - name: Run Unit Testing and Lint
         if: always()
         run: |
-          source $GITHUB_WORKSPACE/content-ci-cd-template/.venv/bin/activate
+          source $GITHUB_WORKSPACE/content/.venv/bin/activate
 
           cd $GITHUB_WORKSPACE
 
           # Copy necessary files
-          cp $GITHUB_WORKSPACE/content-ci-cd-template/Tests/demistomock/demistomock.py ./
-          cp $GITHUB_WORKSPACE/content-ci-cd-template/Tests/demistomock/demistomock.ps1 ./
-          cp $GITHUB_WORKSPACE/content-ci-cd-template/Packs/Base/Scripts/CommonServerPython/CommonServerPython.py ./
-          cp $GITHUB_WORKSPACE/content-ci-cd-template/Packs/Base/Scripts/CommonServerPowerShell/CommonServerPowerShell.ps1 ./
+          cp $GITHUB_WORKSPACE/content/Tests/demistomock/demistomock.py ./
+          cp $GITHUB_WORKSPACE/content/Tests/demistomock/demistomock.ps1 ./
+          cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPython/CommonServerPython.py ./
+          cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPowerShell/CommonServerPowerShell.ps1 ./
           mkdir -p ./dev_envs/pytest/
-          cp $GITHUB_WORKSPACE/content-ci-cd-template/Tests/scripts/dev_envs/pytest/conftest.py ./dev_envs/pytest/
+          cp $GITHUB_WORKSPACE/content/Tests/scripts/dev_envs/pytest/conftest.py ./dev_envs/pytest/
 
           # Run lint on all changed files
           # You can choose what lint checks to use in the .demisto-sdk-conf file
@@ -79,7 +79,7 @@ jobs:
       - name: Create Packs Artifacts
         run: |
           if [ $PACKS_CHANGED ]; then
-            source $GITHUB_WORKSPACE/content-ci-cd-template/.venv/bin/activate
+            source $GITHUB_WORKSPACE/content/.venv/bin/activate
             demisto-sdk prepare-content --input $PACKS_CHANGED --output $NEW_PACKS_FOLDER
           else
             echo "No packs has changed, skipping step."
@@ -106,9 +106,9 @@ jobs:
               # Upload to the artifacts server of your choice.
               # Create a file with the service account data
               # use the bucket_upload script to upload your packs to google cloud storage
-              # python $GITHUB_WORKSPACE/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
+              python $GITHUB_WORKSPACE/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
               # Delete the service account file
-              # rm $GITHUB_WORKSPACE/service_account.json
+              rm $GITHUB_WORKSPACE/service_account.json
 
               # 2. ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
 

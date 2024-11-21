@@ -2,11 +2,7 @@
 .DS_Store
 .vscode
 
-CommonServerPython.py
 CommonServerUserPython.py
-CommonServerPowerShell.ps1
-demistomock.py
-demistomock.ps1
 
 # neo4j
 neo4j-data

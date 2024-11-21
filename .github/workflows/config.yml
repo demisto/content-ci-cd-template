@@ -11,18 +11,18 @@ jobs:
       DEMISTO_README_VALIDATION: false
     steps:
       - name: XSOAR CI/CD master checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Content checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: demisto/content
           path: content
       - name: Install poetry
-        uses: Gr1N/setup-poetry@v8
+        uses: Gr1N/setup-poetry@v9
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.9.12
           cache: poetry
@@ -48,17 +48,8 @@ jobs:
           echo "========== Build Parameters =========="
           python --version
           demisto-sdk --version
-      - name: Validate Files and Yaml
-        if: always()
-        run: |
-          source $GITHUB_WORKSPACE/content/.venv/bin/activate
-
-          cd $GITHUB_WORKSPACE
-
-          # Run validate on all changed files
-          # You can choose what validations to use in the .demisto-sdk-conf file
-          demisto-sdk validate --use-git --post-commit --graph --prev-ver ${DEFAULT_BRANCH}
-      - name: Run Unit Testing and Lint
+          echo "====================================="
+      - name: Run Pre-commit including Validate, Unit Testing and Linting
         if: always()
         run: |
           source $GITHUB_WORKSPACE/content/.venv/bin/activate
@@ -70,12 +61,19 @@ jobs:
           cp $GITHUB_WORKSPACE/content/Tests/demistomock/demistomock.ps1 ./
           cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPython/CommonServerPython.py ./
           cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPowerShell/CommonServerPowerShell.ps1 ./
+          cp $GITHUB_WORKSPACE/content/Packs/ApiModules/Scripts/DemistoClassApiModule/DemistoClassApiModule.py ./
           mkdir -p ./dev_envs/pytest/
           cp $GITHUB_WORKSPACE/content/Tests/scripts/dev_envs/pytest/conftest.py ./dev_envs/pytest/
 
-          # Run lint on all changed files
-          # You can choose what lint checks to use in the .demisto-sdk-conf file
-          demisto-sdk lint -g --prev-ver ${DEFAULT_BRANCH}
+          # Run pre-commit on all changed files
+          # You can choose what pre-commit hooks to run in the .pre-commit-config_template.yaml file
+          # See https://docs-cortex.paloaltonetworks.com/r/1/Demisto-SDK-Guide/pre-commit for more information
+
+          # Note: The demisto-sdk validate command is included in the pre-commit hooks,
+          # and you can configure which checks to run in the validation_config.toml file.
+          # See https://xsoar.pan.dev/docs/concepts/demisto-sdk-validate for more information about the validate command
+
+          demisto-sdk pre-commit -g --prev-version ${DEFAULT_BRANCH}
       - name: Create Packs Artifacts
         run: |
           if [ $PACKS_CHANGED ]; then
@@ -85,7 +83,7 @@ jobs:
             echo "No packs has changed, skipping step."
           fi
       - name: Upload Packs to Artifacts Server
-        # In case 2 below (UPLOAD DIRECTLY TO YOUR XSOAR MACHINE) needed to add these variables
+        # In case 2 below (UPLOAD DIRECTLY TO YOUR XSOAR MACHINE) needed to add these secrets and variables
         # For more information - https://docs-cortex.paloaltonetworks.com/r/1/Demisto-SDK-Guide/Environment-variables-setup
         env:
           DEMISTO_BASE_URL: ${{ secrets.DEMISTO_BASE_URL }}

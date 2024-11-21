@@ -12083,9 +12083,6 @@ def get_server_config():
     return server_config
 
 
-from DemistoClassApiModule import *     # type:ignore [no-redef]  # noqa:E402
-
-
 ###########################################
 #     DO NOT ADD LINES AFTER THIS ONE     #
 ###########################################

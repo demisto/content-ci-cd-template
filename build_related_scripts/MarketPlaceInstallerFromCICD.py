@@ -70,7 +70,7 @@ class ContentPackInstaller:
 
         return res
 
-    def get_pack_dependencies_from_marketplace(self, pack_data: Dict[str, str]) -> Dict[str, Dict[str, str]]:  # pragma: no cover
+    def get_pack_dependencies_from_marketplace(self, pack_data: Dict[str, str]) -> Dict[str, Dict[str, str]]: 
         """Returns the dependencies of the pack from marketplace's data.
 
         Args:

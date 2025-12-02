@@ -18,7 +18,6 @@ class ContentPackInstaller:
         self.already_on_machine_packs: Dict[str, Version] = {}
         self.packs_data: Dict[str, Dict[str, str]] = {}
         self.packs_dependencies: Dict[str, Dict[str, Dict[str, str]]] = {}
-        self.packs_failed: Dict[str, str] = {}
         self.instance_name: Optional[str] = instance_name
 
         self.get_installed_packs()

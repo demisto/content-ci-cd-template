@@ -2,7 +2,7 @@ import argparse
 
 from CommonServerPython import *
 
-from packaging.version import parse, Version, LegacyVersion
+from packaging.version import parse, Version
 
 SCRIPT_NAME = 'MarketplacePackInstaller'
 
@@ -12,24 +12,37 @@ class ContentPackInstaller:
     """
     PACK_ID_VERSION_FORMAT = '{}::{}'
 
-    def __init__(self):
-        self.installed_packs: Dict[str, Union[Version, LegacyVersion]] = dict()
-        self.newly_installed_packs: Dict[str, Version] = dict()
-        self.already_on_machine_packs: Dict[str, Union[Version, LegacyVersion]] = dict()
-        self.packs_data: Dict[str, Dict[str, str]] = dict()
-        self.packs_dependencies: Dict[str, Dict[str, Dict[str, str]]] = dict()
+    def __init__(self, instance_name: str = None):
+        self.installed_packs: Dict[str, Version] = {}
+        self.newly_installed_packs: Dict[str, Version] = {}
+        self.already_on_machine_packs: Dict[str, Version] = {}
+        self.packs_data: Dict[str, Dict[str, str]] = {}
+        self.packs_dependencies: Dict[str, Dict[str, Dict[str, str]]] = {}
+        self.packs_failed: Dict[str, str] = {}
+        self.instance_name: Optional[str] = instance_name
 
         self.get_installed_packs()
 
-    def get_installed_packs(self) -> None:
-        """Gets the current installed packs on the machine.
-        """
+    def _call_execute_command(self, command, args):
+        if self.instance_name:
+            args["using"] = self.instance_name
+
         status, res = execute_command(
-            'demisto-api-get',
-            {'uri': '/contentpacks/metadata/installed'},
+            command,
+            args,
             fail_on_error=False,
         )
 
+        if type(res) is list:
+            res = res[0]
+        return status, res
+
+    def get_installed_packs(self) -> None:
+        """Gets the current installed packs on the machine."""
+
+        args = {"uri": "/contentpacks/metadata/installed"}
+
+        status, res = self._call_execute_command("core-api-get", args)
         if not status:
             return
 
@@ -50,17 +63,15 @@ class ContentPackInstaller:
         if pack_id in self.packs_data:
             return self.packs_data[pack_id]
 
-        status, res = execute_command(
-            'demisto-api-get',
-            {'uri': f'/contentpacks/marketplace/{pack_id}'},
-            fail_on_error=False,
-        )
+        args = {"uri": f"/contentpacks/marketplace/{pack_id}"}
+
+        _, res = self._call_execute_command("core-api-get", args)
 
         self.packs_data[pack_id] = res
 
         return res
 
-    def get_pack_dependencies_from_marketplace(self, pack_data: Dict[str, str]) -> Dict[str, Dict[str, str]]:
+    def get_pack_dependencies_from_marketplace(self, pack_data: Dict[str, str]) -> Dict[str, Dict[str, str]]:  # pragma: no cover
         """Returns the dependencies of the pack from marketplace's data.
 
         Args:
@@ -74,14 +85,9 @@ class ContentPackInstaller:
         if pack_key in self.packs_dependencies:
             return self.packs_dependencies[pack_key]
 
-        status, res = execute_command(
-            'demisto-api-post',
-            {
-                'uri': '/contentpacks/marketplace/search/dependencies',
-                'body': [pack_data]
-            },
-            fail_on_error=False,
-        )
+        args = {'uri': '/contentpacks/marketplace/search/dependencies', 'body': [pack_data]}
+
+        _, res = self._call_execute_command("core-api-post", args)
 
         try:
             self.packs_dependencies[pack_key] = res.get('response', {}).get('packs', [])[0] \
@@ -100,8 +106,15 @@ class ContentPackInstaller:
         Returns:
             str. The latest version of the pack.
         """
-        res = self.get_pack_data_from_marketplace(pack_id)
-        return res.get('response', {}).get('currentVersion')  # type: ignore[call-overload, union-attr]
+        try:
+            res = self.get_pack_data_from_marketplace(pack_id)
+            return res.get('response', {}).get('currentVersion')  # type: ignore[call-overload, union-attr]
+        except AttributeError as e:
+            raise ValueError(
+                f"Error while fetching {pack_id} from the marketplace. "
+                f"Make sure the Core REST API integration is properly configured and {pack_id} exists. "
+                f"Raw Response:\n{res}"
+            )
 
     def get_packs_data_for_installation(self, packs_to_install: List[Dict[str, str]]) -> List[Dict[str, str]]:
         """Creates a list of packs' data for the installation request.

@@ -117,7 +117,7 @@ jobs:
               done
 
             else
-              echo "The currrent branch is not the default branch, skipping upload to server."
+              echo "The current branch is not the default branch, skipping upload to server."
             fi
 
           else

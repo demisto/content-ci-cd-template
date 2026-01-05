@@ -1,0 +1,79 @@
+{
+    "scripts": [
+        {
+            "lbt_cicd_demo_script": {
+                "name": "lbt_cicd_demo_script",
+                "display_name": "lbt_cicd_demo_script",
+                "file_path": "Packs/demo/Scripts/lbtcicddemoscript/lbtcicddemoscript.yml",
+                "source": [
+                    "github.com",
+                    "lbazantorres",
+                    "content-ci-cd-template-demo"
+                ],
+                "pack": "demo",
+                "marketplaces": [
+                    "xsoar"
+                ],
+                "type": "python3",
+                "script_executions": [
+                    "URLDecode"
+                ],
+                "docker_image": "demisto/python3:3.12.12.6391686"
+            }
+        }
+    ],
+    "playbooks": [],
+    "integrations": [],
+    "TestPlaybooks": [],
+    "Classifiers": [],
+    "IncidentFields": [],
+    "IncidentTypes": [],
+    "IndicatorFields": [],
+    "IndicatorTypes": [],
+    "Layouts": [],
+    "Lists": [],
+    "Jobs": [],
+    "Mappers": [],
+    "ParsingRules": [],
+    "ModelingRules": [],
+    "CorrelationRules": [],
+    "XSIAMDashboards": [],
+    "XSIAMReports": [],
+    "Triggers": [],
+    "Wizards": [],
+    "Packs": {
+        "demo": {
+            "name": "demo",
+            "current_version": "1.0.0",
+            "source": [
+                "github.com",
+                "lbazantorres",
+                "content-ci-cd-template-demo"
+            ],
+            "author": "Cortex XSOAR",
+            "certification": "certified",
+            "tags": [],
+            "use_cases": [],
+            "categories": [
+                "Utilities"
+            ],
+            "marketplaces": [
+                "xsoar"
+            ],
+            "ContentItems": {
+                "scripts": [
+                    "lbt_cicd_demo_script"
+                ]
+            }
+        }
+    },
+    "XDRCTemplates": [],
+    "LayoutRules": [],
+    "GenericTypes": [],
+    "GenericFields": [],
+    "GenericModules": [],
+    "GenericDefinitions": [],
+    "Reports": [],
+    "Widgets": [],
+    "Dashboards": []
+}

@@ -1,0 +1,18 @@
+commonfields:
+  id: 'lbt_vs_demo'
+  version: -1
+dockerimage: demisto/python3:3.12.12.6391686
+enabled: true
+engineinfo: {}
+name: lbt_vs_demo
+runas: DBotWeakRole
+runonce: false
+script: ''
+scripttarget: 0
+subtype: python3
+tags: []
+type: python
+fromversion: 5.0.0
+
+tests:
+- No tests (auto formatted)

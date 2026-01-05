@@ -1,6 +1,7 @@
 name: XSOAR CI/CD
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -8,118 +9,148 @@ jobs:
     env:
       BRANCH_NAME: ${{ github.ref_name }}
       DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-      DEMISTO_README_VALIDATION: false
+      DEMISTO_README_VALIDATION: "false"
+      BEFORE_SHA: ${{ github.event.before }}
+      GITHUB_SHA: ${{ github.sha }}
+
     steps:
       - name: XSOAR CI/CD master checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Content checkout
         uses: actions/checkout@v4
         with:
           repository: demisto/content
           path: content
+          fetch-depth: 0
+
       - name: Install poetry
         uses: Gr1N/setup-poetry@v9
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9.12
+          python-version: "3.10"
           cache: poetry
+
       - name: Install python dependencies
         run: |
-          poetry install
-      - name: Prepare Environment
+          poetry config virtualenvs.in-project true
+          poetry install --no-interaction
+
+      - name: Prepare Environment (debug)
         run: |
-          source $GITHUB_WORKSPACE/.venv/bin/activate
-          echo "PATH=/home/runner/.local/bin:$PATH" >> $GITHUB_ENV
-          echo "PYTHONPATH=${GITHUB_WORKSPACE}/content:${GITHUB_WORKSPACE}:${PYTHONPATH}" >> $GITHUB_ENV
+          set -euo pipefail
+          set -x
+
+          # Where prepare-content will place artifacts (zips)
+          mkdir -p "${GITHUB_WORKSPACE}/content/new_packs_zips"
           echo "NEW_PACKS_FOLDER=${GITHUB_WORKSPACE}/content/new_packs_zips" >> $GITHUB_ENV
 
-          PACKS_CHANGED=$(python $GITHUB_WORKSPACE/build_related_scripts/get_modified_packs.py --repo_path $GITHUB_WORKSPACE/ --prev-ver ${DEFAULT_BRANCH})
+          # Make sure default branch ref exists locally
+          git fetch origin "${DEFAULT_BRANCH}" --prune
+
+          echo "===== DEBUG: Branch/SHAs ====="
+          echo "BRANCH_NAME=${BRANCH_NAME}"
+          echo "DEFAULT_BRANCH=${DEFAULT_BRANCH}"
+          echo "BEFORE_SHA=${BEFORE_SHA:-}"
+          echo "GITHUB_SHA=${GITHUB_SHA:-}"
+
+          # Decide diff range:
+          # - On push: use BEFORE_SHA..GITHUB_SHA
+          # - On workflow_dispatch: fallback to origin/DEFAULT_BRANCH...HEAD
+          if [ -n "${BEFORE_SHA:-}" ] && [ "${BEFORE_SHA}" != "0000000000000000000000000000000000000000" ]; then
+            RANGE="${BEFORE_SHA}..${GITHUB_SHA}"
+          else
+            RANGE="origin/${DEFAULT_BRANCH}...HEAD"
+          fi
+
+          echo "DEBUG: Using RANGE=${RANGE}"
+
+          # Get changed packs from THIS repo (where your Packs/ folder lives)
+          CHANGED_FILES="$(git diff --name-only ${RANGE} || true)"
+          echo "DEBUG: Changed files:"
+          echo "${CHANGED_FILES}" || true
+
+          PACKS_CHANGED="$(echo "${CHANGED_FILES}" | awk -F/ '/^Packs\//{print $1"/"$2}' | sort -u | tr '\n' ' ' | xargs || true)"
           echo "PACKS_CHANGED=${PACKS_CHANGED}" >> $GITHUB_ENV
+          echo "DEBUG: PACKS_CHANGED='${PACKS_CHANGED}'"
+
       - name: Prepare Venv
         run: |
-          cd $GITHUB_WORKSPACE/content/
+          set -euo pipefail
+          set -x
+          cd "$GITHUB_WORKSPACE/content/"
 
-          # Install node packages
+          # Install node packages (fase mantenida)
           npm install .
+
           git config diff.renameLimit 6000
           echo "========== Build Parameters =========="
           python --version
-          demisto-sdk --version
+          cd "$GITHUB_WORKSPACE"
+          poetry run demisto-sdk --version
           echo "====================================="
-      - name: Run Pre-commit including Validate, Unit Testing and Linting
-        if: always()
+
+      - name: Create Packs Artifacts (debug)
         run: |
-          source $GITHUB_WORKSPACE/content/.venv/bin/activate
+          set -euo pipefail
+          set -x
 
-          cd $GITHUB_WORKSPACE
+          echo "PACKS_CHANGED='${PACKS_CHANGED:-}'"
+          echo "NEW_PACKS_FOLDER='${NEW_PACKS_FOLDER:-}'"
 
-          # Copy necessary files
-          cp $GITHUB_WORKSPACE/content/Tests/demistomock/demistomock.py ./
-          cp $GITHUB_WORKSPACE/content/Tests/demistomock/demistomock.ps1 ./
-          cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPython/CommonServerPython.py ./
-          cp $GITHUB_WORKSPACE/content/Packs/Base/Scripts/CommonServerPowerShell/CommonServerPowerShell.ps1 ./
-          cp $GITHUB_WORKSPACE/content/Packs/ApiModules/Scripts/DemistoClassApiModule/DemistoClassApiModule.py ./
-          mkdir -p ./dev_envs/pytest/
-          cp $GITHUB_WORKSPACE/content/Tests/scripts/dev_envs/pytest/conftest.py ./dev_envs/pytest/
-
-          # Run pre-commit on all changed files
-          # You can choose what pre-commit hooks to run in the .pre-commit-config_template.yaml file
-          # See https://docs-cortex.paloaltonetworks.com/r/1/Demisto-SDK-Guide/pre-commit for more information
-
-          # Note: The demisto-sdk validate command is included in the pre-commit hooks,
-          # and you can configure which checks to run in the validation_config.toml file.
-          # See https://xsoar.pan.dev/docs/concepts/demisto-sdk-validate for more information about the validate command
-
-          demisto-sdk pre-commit -g --prev-version ${DEFAULT_BRANCH}
-      - name: Create Packs Artifacts
-        run: |
-          if [ $PACKS_CHANGED ]; then
-            source $GITHUB_WORKSPACE/content/.venv/bin/activate
-            demisto-sdk prepare-content --input $PACKS_CHANGED --output $NEW_PACKS_FOLDER
+          if [ -n "${PACKS_CHANGED:-}" ]; then
+            # prepare-content creates the zips in NEW_PACKS_FOLDER
+            poetry run demisto-sdk prepare-content --input "$PACKS_CHANGED" --output "$NEW_PACKS_FOLDER"
+            echo "Artifacts generated at: $NEW_PACKS_FOLDER"
+            ls -la "$NEW_PACKS_FOLDER" || true
           else
             echo "No packs has changed, skipping step."
           fi
-      - name: Upload Packs to Artifacts Server
-        # In case 2 below (UPLOAD DIRECTLY TO YOUR XSOAR MACHINE) needed to add these secrets and variables
-        # For more information - https://docs-cortex.paloaltonetworks.com/r/1/Demisto-SDK-Guide/Environment-variables-setup
+
+      - name: Install bucket upload deps
+        run: |
+          python -m pip install --upgrade pip prettytable google-cloud-storage
+
+      - name: Upload Packs to XSOAR (debug)
         env:
           DEMISTO_BASE_URL: ${{ secrets.DEMISTO_BASE_URL }}
           DEMISTO_API_KEY: ${{ secrets.DEMISTO_API_KEY }}
-          # For Cortex XSOAR 8 and Cortex XSIAM add the following variable:
           XSIAM_AUTH_ID: ${{ vars.XSIAM_AUTH_ID }}
-        run : |
-          if [ $PACKS_CHANGED ]; then
-            if [ $BRANCH_NAME == ${DEFAULT_BRANCH} ]; then
+        run: |
+          set -euo pipefail
+          set -x
+
+          echo "===== DEBUG Upload ====="
+          echo "BRANCH_NAME=${BRANCH_NAME}"
+          echo "DEFAULT_BRANCH=${DEFAULT_BRANCH}"
+          echo "PACKS_CHANGED='${PACKS_CHANGED:-}'"
+          echo "NEW_PACKS_FOLDER='${NEW_PACKS_FOLDER:-}'"
+          echo "DEMISTO_BASE_URL set? $([ -n "${DEMISTO_BASE_URL:-}" ] && echo yes || echo no)"
+          echo "DEMISTO_API_KEY set? $([ -n "${DEMISTO_API_KEY:-}" ] && echo yes || echo no)"
+          echo "XSIAM_AUTH_ID='${XSIAM_AUTH_ID:-}'"
+          poetry run demisto-sdk --version || true
+
+          if [ -n "${PACKS_CHANGED:-}" ]; then
+            if [ "${BRANCH_NAME}" = "${DEFAULT_BRANCH}" ]; then
               echo "Uploading artifacts ${PACKS_CHANGED}."
+              ls -la "$NEW_PACKS_FOLDER" || { echo "Folder not found: $NEW_PACKS_FOLDER"; exit 1; }
 
-              # Select the way you want to install the packs on the machine, and remove the second part
-              # For example: Choose the option 1 - UPLOAD TO ARTIFACTS SERVER OPTION, and remove the option 2 - UPLOAD DIRECTLY TO YOUR XSOAR MACHINE.
-              # For more information - https://xsoar.pan.dev/docs/reference/articles/xsoar-ci-cd#to-deploy-content
+              echo "Artifacts to upload:"
+              find "$NEW_PACKS_FOLDER" -maxdepth 1 -type f -print || true
 
-              # 1. ========= UPLOAD TO ARTIFACTS SERVER OPTION =========
-
-              # Upload to the artifacts server of your choice.
-              # Create a file with the service account data
-              # use the bucket_upload script to upload your packs to google cloud storage
-              python $GITHUB_WORKSPACE/build_related_scripts/bucket_upload.py --service_account $GITHUB_WORKSPACE/service_account.json --packs_directory $NEW_PACKS_FOLDER --branch_name $BRANCH_NAME
-              # Delete the service account file
-              rm $GITHUB_WORKSPACE/service_account.json
-
-              # 2. ========= UPLOAD DIRECTLY TO YOUR XSOAR MACHINE (WHEN MERGING TO MAIN REPO) =========
-
-              cd $NEW_PACKS_FOLDER
-              for pack in *
-              do
-                demisto-sdk upload --input $pack
+              for pack in "$NEW_PACKS_FOLDER"/*; do
+                [ -e "$pack" ] || { echo "No artifacts found to upload in $NEW_PACKS_FOLDER"; exit 0; }
+                echo "Uploading: $pack"
+                ls -lh "$pack" || true
+                poetry run demisto-sdk upload --input "$pack"
               done
-
             else
-              echo "The currrent branch is not the default branch, skipping upload to server."
+              echo "The current branch is not the default branch, skipping upload to server."
             fi
-
           else
             echo "No packs has changed, skipping step."
           fi

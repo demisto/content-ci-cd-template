@@ -48,7 +48,7 @@ def init_container_clients(
     container_name: str,
     sas_token: str,
     verbose: bool,
-) -> Tuple[Optional[ContainerClient], Optional[ContainerClient], str]:
+) -> Tuple[Optional[ContainerClient], Optional[ContainerClient]]:
     sas_with_prefix = sas_token if sas_token.startswith("?") else f"?{sas_token}"
     primary_client: Optional[ContainerClient] = None
     fallback_client: Optional[ContainerClient] = None
@@ -78,7 +78,7 @@ def init_container_clients(
         details = "; ".join(errors) if errors else "no additional details"
         raise RuntimeError(f"Failed to initialize Azure Blob container clients: {details}")
 
-    return primary_client, fallback_client, sas_with_prefix
+    return primary_client, fallback_client
 
 
 def get_pack_metadata(pack_path: Path, verbose: bool) -> Dict[str, str]:
@@ -223,7 +223,7 @@ def main() -> None:
 
     try:
         sas_token = ensure_sas_token(options.verbose)
-        primary_client, fallback_client, _ = init_container_clients(
+        primary_client, fallback_client = init_container_clients(
             options.account_url,
             options.container_name,
             sas_token,

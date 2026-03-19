@@ -169,7 +169,6 @@ def upload_pack_file(
     pack_label = pack_path.stem
     try:
         metadata = get_pack_metadata(pack_path, verbose)
-        pack_label = metadata["id"]
         pack_version = metadata["currentVersion"]
         blob_name = format_blob_path(pack_label, pack_version, pack_path.name, branch_name, default_branch)
         print(f"Uploading '{pack_path.name}' to '{blob_name}'...", end="", flush=True)

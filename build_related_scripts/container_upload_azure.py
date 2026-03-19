@@ -148,10 +148,9 @@ def verify_upload(client: ContainerClient, blob_name: str, verbose: bool) -> Non
         return
     try:
         blob_client = client.get_blob_client(blob_name)
-        if blob_client.exists():
-            properties = blob_client.get_blob_properties()
-            if verbose:
-                logging.info("Verified blob %s (%s bytes)", blob_name, properties.size)
+        properties = blob_client.get_blob_properties()
+        if verbose:
+            logging.info("Verified blob %s (%s bytes)", blob_name, properties.size)
         elif verbose:
             logging.info("Blob %s uploaded but verification skipped (no read permission).", blob_name)
     except Exception as exc:  # noqa: BLE001

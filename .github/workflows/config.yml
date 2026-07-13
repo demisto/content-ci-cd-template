@@ -11,18 +11,18 @@ jobs:
       DEMISTO_README_VALIDATION: false
     steps:
       - name: XSOAR CI/CD master checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Content checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: demisto/content
           path: content
       - name: Install poetry
         uses: Gr1N/setup-poetry@48b0f77c8c1b1b19cb962f0f00dff7b4be8f81ec # v9
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: 3.11
           cache: poetry
@@ -117,7 +117,7 @@ jobs:
               done
 
             else
-              echo "The currrent branch is not the default branch, skipping upload to server."
+              echo "The current branch is not the default branch, skipping upload to server."
             fi
 
           else

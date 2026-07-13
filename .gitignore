@@ -1,7 +1,7 @@
 *.pyc
 .DS_Store
 .vscode
-
+.idea
 CommonServerUserPython.py
 
 # neo4j
